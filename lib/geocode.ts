@@ -2,14 +2,16 @@
 // Every place the model names is looked up here; only ones OSM confirms get a
 // map pin. This is our grounding layer — it keeps hallucinated places off the map.
 //
-// Nominatim's usage policy asks for at most ~1 request/second and no heavy
-// concurrency, so we geocode sequentially with a small delay. A hit rate this
-// buys is far higher than firing requests in parallel (which gets throttled).
+// Nominatim's free-text matching is inconsistent: for the same real place, one
+// query phrasing resolves while another returns nothing (e.g. "Dashashwamedh Ghat"
+// hits but "Dashashwamedh Ghat, Varanasi, India" misses). So we try a few shapes
+// per place and take the first hit. All requests are globally throttled to stay
+// within Nominatim's ~1 req/sec fair-use policy, and a call budget bounds latency.
 
 const NOMINATIM = "https://nominatim.openstreetmap.org/search";
 const UA = "Wanderlore/1.0 (cultural trip planner; https://github.com/AmanKumarVerma11)";
-const PACE_MS = 1100; // stay under 1 req/sec
-const MAX_LOOKUPS = 20; // bound worst-case latency for long trips
+const PACE_MS = 1100; // ~1 request/second
+const MAX_CALLS = 26; // hard cap on Nominatim calls per itinerary (bounds latency)
 
 export interface GeoResult {
   lat: number;
@@ -19,16 +21,42 @@ export interface GeoResult {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** Simplify a compound query ("A and B (note), City") to its first real place. */
-export function simplifyQuery(query: string): string {
-  const parts = query.split(",");
-  let name = parts[0].replace(/\(.*?\)/g, "").trim();
-  name = name.split(/\s+(?:and|&)\s+|\//i)[0].trim();
-  const rest = parts.slice(1).join(",").trim();
-  return rest ? `${name}, ${rest}` : name;
+// Global throttle shared across all lookups in a request (and reused across
+// requests in a warm serverless instance) so we never burst Nominatim.
+let lastCallAt = 0;
+async function throttle() {
+  const now = Date.now();
+  const wait = PACE_MS - (now - lastCallAt);
+  if (wait > 0) await sleep(wait);
+  lastCallAt = Date.now();
+}
+
+/**
+ * Build a few query shapes for one place, most-specific first, deduped:
+ *  1. the model's full "Name, City, Country"
+ *  2. "Name, City" (drop country + any middle locality)
+ *  3. "Name City" (no punctuation — Nominatim sometimes prefers this)
+ *  4. "Name" alone
+ */
+export function queryVariants(query: string): string[] {
+  const parts = query
+    .split(",")
+    .map((s) => s.replace(/\(.*?\)/g, "").trim())
+    .filter(Boolean);
+  const name = parts[0] || query.trim();
+  const variants = [query.trim()];
+  if (parts.length >= 2) {
+    // City = last segment that isn't an obvious country-level token.
+    const city = parts.length >= 3 ? parts[parts.length - 2] : parts[1];
+    variants.push(`${name}, ${city}`);
+    variants.push(`${name} ${city}`);
+  }
+  variants.push(name);
+  return Array.from(new Set(variants));
 }
 
 async function fetchGeo(query: string): Promise<GeoResult | null> {
+  await throttle();
   const url = `${NOMINATIM}?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
@@ -61,30 +89,17 @@ async function fetchGeo(query: string): Promise<GeoResult | null> {
   }
 }
 
-/** Look up one query, falling back to a simplified form for compound names. */
-export async function geocodeOne(query: string): Promise<GeoResult | null> {
-  const hit = await fetchGeo(query);
-  if (hit) return hit;
-  const simple = simplifyQuery(query);
-  if (simple !== query) {
-    await sleep(PACE_MS);
-    return fetchGeo(simple);
-  }
-  return null;
-}
-
 /**
- * Geocode many queries sequentially (respecting Nominatim's rate limit), deduping
- * identical queries. Order of results matches input order; a null means
- * "unverified" rather than a hard failure. Lookups are capped to bound latency.
+ * Geocode many queries, deduped, trying multiple query shapes per place until one
+ * resolves. Order of results matches input order; null means "unverified" (shown
+ * but flagged) rather than a hard failure. A global call budget bounds latency.
  */
 export async function geocodeMany(
   queries: string[]
 ): Promise<Array<GeoResult | null>> {
   const cache = new Map<string, GeoResult | null>();
   const results: Array<GeoResult | null> = new Array(queries.length).fill(null);
-  let lookups = 0;
-  let first = true;
+  let calls = 0;
 
   for (let i = 0; i < queries.length; i++) {
     const q = queries[i];
@@ -92,13 +107,15 @@ export async function geocodeMany(
       results[i] = cache.get(q) ?? null;
       continue;
     }
-    if (lookups >= MAX_LOOKUPS) break;
-    if (!first) await sleep(PACE_MS);
-    first = false;
-    const r = await geocodeOne(q);
-    lookups++;
-    cache.set(q, r);
-    results[i] = r;
+    let hit: GeoResult | null = null;
+    for (const variant of queryVariants(q)) {
+      if (calls >= MAX_CALLS) break;
+      calls++;
+      hit = await fetchGeo(variant);
+      if (hit) break;
+    }
+    cache.set(q, hit);
+    results[i] = hit;
   }
   return results;
 }
