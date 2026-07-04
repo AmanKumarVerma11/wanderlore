@@ -2,6 +2,8 @@ import { ImageResponse } from "next/og";
 
 // Dynamically-generated social share image (1200×630) in Wanderlore's monochrome
 // + red theme. File-based convention: Next wires this into og:image / twitter:image.
+// Note: Satori (next/og) requires every element with >1 child to set display:flex,
+// so all inline text is split into spans inside flex rows.
 export const runtime = "edge";
 export const alt = "Wanderlore — AI cultural trip planner";
 export const size = { width: 1200, height: 630 };
@@ -22,61 +24,70 @@ export default function Image() {
           fontFamily: "sans-serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            color: "#1a1a1a",
-            fontSize: 28,
-            letterSpacing: 6,
-            fontWeight: 600,
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center" }}>
           <div
             style={{
               width: 34,
               height: 34,
-              borderRadius: "50%",
+              borderRadius: 34,
               border: "4px solid #e5352b",
+              marginRight: 18,
             }}
           />
-          WANDERLORE
+          <span
+            style={{
+              fontSize: 28,
+              letterSpacing: 6,
+              fontWeight: 600,
+              color: "#1a1a1a",
+            }}
+          >
+            WANDERLORE
+          </span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              fontSize: 78,
-              fontWeight: 700,
-              color: "#1a1a1a",
-              lineHeight: 1.05,
-              letterSpacing: -2,
-            }}
-          >
-            Discover a place&rsquo;s{" "}
-            <span style={{ color: "#e5352b" }}>soul</span>,
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <span
+              style={{
+                fontSize: 76,
+                fontWeight: 700,
+                color: "#1a1a1a",
+                letterSpacing: -2,
+                marginRight: 24,
+              }}
+            >
+              Discover a place&#39;s
+            </span>
+            <span
+              style={{
+                fontSize: 76,
+                fontWeight: 700,
+                color: "#e5352b",
+                letterSpacing: -2,
+              }}
+            >
+              soul,
+            </span>
           </div>
-          <div
+          <span
             style={{
-              fontSize: 78,
+              fontSize: 76,
               fontWeight: 700,
               color: "#1a1a1a",
-              lineHeight: 1.05,
               letterSpacing: -2,
             }}
           >
             not just its sights.
-          </div>
-          <div style={{ fontSize: 30, color: "#6b6b6b", marginTop: 28 }}>
-            AI cultural trips · hidden gems · heritage · every place verified on a
+          </span>
+          <span style={{ fontSize: 29, color: "#6b6b6b", marginTop: 30 }}>
+            AI cultural trips / hidden gems / heritage / every place verified on a
             real map
-          </div>
+          </span>
         </div>
 
-        <div
+        <span
           style={{
-            display: "flex",
             fontSize: 24,
             color: "#8a8a8a",
             letterSpacing: 1,
@@ -84,7 +95,7 @@ export default function Image() {
           }}
         >
           wanderlore.amankrverma.in
-        </div>
+        </span>
       </div>
     ),
     { ...size }
