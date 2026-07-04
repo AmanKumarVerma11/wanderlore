@@ -15,9 +15,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const it = await getItinerary(params.id);
   if (!it) return { title: "Trip not found — Wanderlore" };
+  const title = `${it.destinationFull} — a cultural trip`;
+  const description = it.heritageSummary?.slice(0, 200) || undefined;
   return {
-    title: `${it.destinationFull} — a cultural trip · Wanderlore`,
-    description: it.heritageSummary?.slice(0, 160),
+    title,
+    description,
+    alternates: { canonical: `/t/${params.id}` },
+    openGraph: {
+      type: "article",
+      title: `${title} · Wanderlore`,
+      description,
+      url: `/t/${params.id}`,
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

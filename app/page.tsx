@@ -1,9 +1,26 @@
 import TripPlanner from "@/components/TripPlanner";
 import { Compass } from "@/components/icons";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Wanderlore",
+  url: "https://wanderlore.amankrverma.in",
+  applicationCategory: "TravelApplication",
+  operatingSystem: "Web",
+  description:
+    "An AI cultural trip planner that weaves day-by-day journeys of attractions, hidden gems, heritage, local festivals and authentic experiences — every place verified on a real map.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  creator: { "@type": "Person", name: "Aman Kumar Verma", url: "https://amankrverma.in" },
+};
+
 export default function Home() {
   return (
     <main className="mx-auto max-w-3xl px-5 py-12 sm:py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="mb-12">
         <div className="flex items-center gap-2 text-ink">
           <Compass size={18} className="text-accent" />
