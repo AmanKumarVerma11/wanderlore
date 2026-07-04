@@ -32,3 +32,6 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Local-only phase-2 design brief (never push)
+agentorchprompt.md

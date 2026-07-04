@@ -83,6 +83,15 @@ export interface WikiRef {
   url: string;
 }
 
+/** How an itinerary was produced — for observability and a subtle UI badge. */
+export interface OrchestrationMeta {
+  mode: "ensemble" | "single"; // ensemble = NVIDIA panel used; single = Gemini only
+  synthesizer: "gemini";
+  panel: Array<{ model: string; ok: boolean; ms: number }>;
+  panelistsUsed: number; // candidates that actually fed the synthesizer
+  degraded: boolean; // true when we fell back below a full ensemble
+}
+
 /** Final payload sent to the client and persisted for share links. */
 export interface Itinerary {
   input: PlanRequest;

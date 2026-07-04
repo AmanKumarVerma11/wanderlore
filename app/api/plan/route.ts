@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { validatePlanRequest } from "@/lib/validate";
-import { generateItinerary, GeminiError } from "@/lib/gemini";
+import { GeminiError } from "@/lib/gemini";
+import { generateItineraryEnsemble } from "@/lib/orchestrator";
 import { enrichItinerary } from "@/lib/enrich";
 import { isSupabaseEnabled } from "@/lib/supabase";
 import { isEmailEnabled } from "@/lib/email";
@@ -30,10 +31,14 @@ export async function POST(request: Request) {
   }
 
   try {
-    const model = await generateItinerary(validated.value);
+    // Multi-LLM ensemble when NVIDIA is configured; otherwise the unchanged
+    // single-Gemini path. Either way we get a strict ModelItinerary, then the
+    // same OSM/Wikipedia enrichment produces the final grounded itinerary.
+    const { model, meta } = await generateItineraryEnsemble(validated.value);
     const itinerary = await enrichItinerary(validated.value, model);
     return NextResponse.json({
       itinerary,
+      orchestration: meta,
       shareEnabled: isSupabaseEnabled(),
       emailEnabled: isEmailEnabled(),
     });
