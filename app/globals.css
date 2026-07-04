@@ -8,36 +8,65 @@
   }
   body {
     @apply bg-paper text-ink antialiased;
-    background-image:
-      radial-gradient(60rem 40rem at 80% -10%, oklch(0.95 0.04 75 / 0.5), transparent),
-      radial-gradient(50rem 40rem at -10% 10%, oklch(0.94 0.03 190 / 0.4), transparent);
-    background-attachment: fixed;
   }
   ::selection {
-    @apply bg-accent/30;
+    @apply bg-accent/20;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-accent;
   }
 }
 
 @layer components {
   .card {
-    @apply rounded-2xl border border-line bg-surface shadow-soft;
+    @apply rounded-xl border border-line bg-surface;
+  }
+  /* micro uppercase label in mono — the one recurring "system" flourish */
+  .label {
+    @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.14em] text-muted;
   }
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted;
   }
-  .label {
-    @apply text-xs font-medium uppercase tracking-wider text-muted;
-  }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 font-medium text-white shadow-soft transition hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-white transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 py-2 font-medium text-ink transition hover:border-accent hover:text-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-surface px-4 py-2 font-medium text-ink transition-colors hover:border-ink hover:text-ink disabled:opacity-60;
+  }
+  .link-underline {
+    @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-accent hover:text-accent;
   }
 }
 
-/* Leaflet renders its own pane sizing; make sure the container has height. */
+/* Leaflet container inherits our type + rounding. */
 .leaflet-container {
-  @apply rounded-2xl;
+  @apply rounded-xl;
   font: inherit;
+}
+
+/* --- Print / export to PDF: strip chrome, keep the itinerary readable --- */
+@media print {
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .card {
+    border-color: #e5e5e5 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+  section {
+    break-inside: avoid;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
 }

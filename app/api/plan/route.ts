@@ -3,6 +3,7 @@ import { validatePlanRequest } from "@/lib/validate";
 import { generateItinerary, GeminiError } from "@/lib/gemini";
 import { enrichItinerary } from "@/lib/enrich";
 import { isSupabaseEnabled } from "@/lib/supabase";
+import { isEmailEnabled } from "@/lib/email";
 
 // Real model call + live OSM/Wikipedia enrichment can take a while; give the
 // serverless function room so it doesn't time out mid-generation.
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       itinerary,
       shareEnabled: isSupabaseEnabled(),
+      emailEnabled: isEmailEnabled(),
     });
   } catch (err) {
     if (err instanceof GeminiError) {

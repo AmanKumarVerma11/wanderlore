@@ -8,13 +8,28 @@ import type {
   LocalEvent,
   Experience,
 } from "@/lib/types";
+import {
+  MapPin,
+  Clock,
+  Link as LinkIcon,
+  BookOpen,
+  Star,
+  Download,
+  Mail,
+  Check,
+  ExternalLink,
+  Calendar,
+  Sparkles,
+  Languages,
+  Shield,
+} from "./icons";
 
 // Map must not render on the server (Leaflet needs the DOM).
 const TripMap = dynamic(() => import("./TripMap"), {
   ssr: false,
   loading: () => (
     <div className="card grid h-[22rem] place-items-center text-sm text-muted">
-      Loading map…
+      Loading map&hellip;
     </div>
   ),
 });
@@ -22,14 +37,15 @@ const TripMap = dynamic(() => import("./TripMap"), {
 interface Props {
   itinerary: Itinerary;
   shareId?: string;
-  /** Whether "create share link" should be offered (Supabase configured). */
   shareEnabled?: boolean;
+  emailEnabled?: boolean;
 }
 
 export default function ItineraryView({
   itinerary,
   shareId,
   shareEnabled = true,
+  emailEnabled = true,
 }: Props) {
   const it = itinerary;
   const mapPlaces: EnrichedPlace[] = [
@@ -38,32 +54,46 @@ export default function ItineraryView({
   ];
 
   return (
-    <div className="grid gap-8">
-      <Hero itinerary={it} shareId={shareId} shareEnabled={shareEnabled} />
+    <div className="grid gap-10">
+      <Hero itinerary={it} />
+
+      <ActionsBar
+        itinerary={it}
+        shareId={shareId}
+        shareEnabled={shareEnabled}
+        emailEnabled={emailEnabled}
+      />
 
       <section aria-label="Map">
         <SectionTitle kicker="On the map" title="Everywhere you'll wander" />
-        <div className="mt-3">
+        <div className="mt-4">
           <TripMap places={mapPlaces} center={it.center} />
-          <p className="mt-2 text-xs text-muted">
-            <span className="inline-block h-2.5 w-2.5 -translate-y-px rounded-full bg-accent align-middle" />{" "}
-            Attractions{"   "}
-            <span className="ml-3 inline-block h-2.5 w-2.5 -translate-y-px rounded-full bg-teal align-middle" />{" "}
-            Hidden gems · pins verified against OpenStreetMap
+          <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-muted">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-ink" />
+              Attractions
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent" />
+              Hidden gems
+            </span>
+            <span className="text-faint">verified against OpenStreetMap</span>
           </p>
         </div>
       </section>
 
       <section aria-label="Day by day itinerary">
         <SectionTitle kicker="Day by day" title="Your cultural itinerary" />
-        <div className="mt-4 grid gap-5">
+        <div className="mt-5 grid gap-5">
           {it.days.map((d) => (
             <div key={d.day} className="card p-5 sm:p-6">
               <div className="flex items-baseline gap-3">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-semibold text-white">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-ink font-mono text-xs font-semibold text-white">
                   {d.day}
                 </span>
-                <h3 className="font-serif text-xl text-ink">{d.theme}</h3>
+                <h3 className="text-lg font-semibold tracking-tight text-ink">
+                  {d.theme}
+                </h3>
               </div>
               <div className="mt-4 grid gap-4">
                 {d.items.map((p, i) => (
@@ -77,8 +107,11 @@ export default function ItineraryView({
 
       {it.localSecrets.length > 0 && (
         <section aria-label="Hidden gems">
-          <SectionTitle kicker="Local secrets" title="Hidden gems most tourists miss" />
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <SectionTitle
+            kicker="Local secrets"
+            title="Hidden gems most tourists miss"
+          />
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {it.localSecrets.map((p, i) => (
               <PlaceCard key={`secret-${i}`} place={p} />
             ))}
@@ -88,8 +121,12 @@ export default function ItineraryView({
 
       {it.events.length > 0 && (
         <section aria-label="Local events and festivals">
-          <SectionTitle kicker="When to come" title="Cultural events & festivals" />
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <SectionTitle
+            kicker="When to come"
+            title="Cultural events & festivals"
+            icon={<Calendar size={16} />}
+          />
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {it.events.map((e, i) => (
               <EventCard key={i} event={e} />
             ))}
@@ -99,8 +136,12 @@ export default function ItineraryView({
 
       {it.experiences.length > 0 && (
         <section aria-label="Authentic cultural experiences">
-          <SectionTitle kicker="Go deeper" title="Authentic experiences to live" />
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <SectionTitle
+            kicker="Go deeper"
+            title="Authentic experiences to live"
+            icon={<Sparkles size={16} />}
+          />
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
             {it.experiences.map((x, i) => (
               <ExperienceCard key={i} exp={x} />
             ))}
@@ -108,15 +149,23 @@ export default function ItineraryView({
         </section>
       )}
 
-      <section aria-label="Language and etiquette" className="grid gap-6 md:grid-cols-2">
+      <section
+        aria-label="Language and etiquette"
+        className="grid gap-6 md:grid-cols-2"
+      >
         {it.phrases.length > 0 && (
           <div className="card p-5 sm:p-6">
-            <SectionTitle kicker="Speak a little" title="Handy local phrases" small />
-            <ul className="mt-3 grid gap-2">
+            <SectionTitle
+              kicker="Speak a little"
+              title="Handy local phrases"
+              small
+              icon={<Languages size={15} />}
+            />
+            <ul className="mt-4 grid gap-2.5">
               {it.phrases.map((p, i) => (
                 <li key={i} className="flex flex-wrap items-baseline gap-x-2">
                   <span className="font-medium text-ink">{p.phrase}</span>
-                  <span className="text-sm text-muted">— {p.meaning}</span>
+                  <span className="text-sm text-muted">&mdash; {p.meaning}</span>
                 </li>
               ))}
             </ul>
@@ -124,10 +173,18 @@ export default function ItineraryView({
         )}
         {it.etiquette.length > 0 && (
           <div className="card p-5 sm:p-6">
-            <SectionTitle kicker="Travel with respect" title="Cultural etiquette" small />
-            <ul className="mt-3 grid list-disc gap-1.5 pl-5 text-sm text-ink/90">
+            <SectionTitle
+              kicker="Travel with respect"
+              title="Cultural etiquette"
+              small
+              icon={<Shield size={15} />}
+            />
+            <ul className="mt-4 grid gap-2 text-sm text-ink-soft">
               {it.etiquette.map((e, i) => (
-                <li key={i}>{e}</li>
+                <li key={i} className="flex gap-2.5">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                  {e}
+                </li>
               ))}
             </ul>
           </div>
@@ -139,15 +196,7 @@ export default function ItineraryView({
   );
 }
 
-function Hero({
-  itinerary,
-  shareId,
-  shareEnabled,
-}: {
-  itinerary: Itinerary;
-  shareId?: string;
-  shareEnabled?: boolean;
-}) {
+function Hero({ itinerary }: { itinerary: Itinerary }) {
   const it = itinerary;
   return (
     <section className="card overflow-hidden">
@@ -155,60 +204,65 @@ function Hero({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={it.hero.image}
-          alt={`${it.destinationFull}`}
-          className="h-56 w-full object-cover sm:h-72"
+          alt={it.destinationFull}
+          className="h-56 w-full object-cover grayscale-[15%] sm:h-72"
         />
       )}
       <div className="p-6 sm:p-8">
         <p className="label">A cultural portrait of</p>
-        <h1 className="mt-1 font-serif text-3xl text-ink sm:text-4xl">
+        <h1 className="mt-2 text-3xl font-semibold tracking-tightest text-ink sm:text-4xl">
           {it.destinationFull}
         </h1>
-        <div className="mt-4 grid gap-3 text-ink/90">
+        <div className="mt-5 grid gap-3 leading-relaxed text-ink-soft">
           {it.story.split(/\n\n+/).map((para, i) => (
-            <p key={i} className="leading-relaxed">
-              {para}
-            </p>
+            <p key={i}>{para}</p>
           ))}
         </div>
         {it.heritageSummary && (
-          <div className="mt-5 rounded-xl border border-teal/30 bg-teal-soft/50 p-4">
-            <p className="label text-teal">Heritage</p>
-            <p className="mt-1 text-sm leading-relaxed text-ink/90">
+          <div className="mt-6 border-l-2 border-accent bg-accent-soft/40 px-4 py-3">
+            <p className="label text-accent-dark">Heritage</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
               {it.heritageSummary}
             </p>
           </div>
         )}
-        <ShareBar itinerary={it} shareId={shareId} shareEnabled={shareEnabled} />
       </div>
     </section>
   );
 }
 
-function ShareBar({
+function ActionsBar({
   itinerary,
   shareId,
   shareEnabled,
+  emailEnabled,
 }: {
   itinerary: Itinerary;
   shareId?: string;
   shareEnabled?: boolean;
+  emailEnabled?: boolean;
 }) {
   const [url, setUrl] = useState<string | null>(
-    shareId ? buildUrl(shareId) : null
+    shareId ? toShareUrl(shareId) : null
   );
   const [saving, setSaving] = useState(false);
-  const [msg, setMsg] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [showEmail, setShowEmail] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailState, setEmailState] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
+  const [emailMsg, setEmailMsg] = useState<string | null>(null);
+  const [shareMsg, setShareMsg] = useState<string | null>(null);
 
-  function buildUrl(id: string): string {
+  function toShareUrl(id: string): string {
     if (typeof window !== "undefined") return `${window.location.origin}/t/${id}`;
     return `/t/${id}`;
   }
 
   async function createLink() {
     setSaving(true);
-    setMsg(null);
+    setShareMsg(null);
     try {
       const res = await fetch("/api/save", {
         method: "POST",
@@ -217,12 +271,12 @@ function ShareBar({
       });
       const data = await res.json();
       if (!res.ok) {
-        setMsg(data.error || "Could not create a share link.");
+        setShareMsg(data.error || "Could not create a share link.");
         return;
       }
-      setUrl(buildUrl(data.id));
+      setUrl(toShareUrl(data.id));
     } catch {
-      setMsg("Could not create a share link.");
+      setShareMsg("Could not create a share link.");
     } finally {
       setSaving(false);
     }
@@ -235,39 +289,132 @@ function ShareBar({
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      /* clipboard may be blocked; the input still shows the URL */
+      /* clipboard blocked; input still shows the URL */
     }
   }
 
-  // Nothing to offer: no existing link and sharing isn't configured.
-  if (!url && !shareEnabled) return null;
+  async function sendEmail(e: React.FormEvent) {
+    e.preventDefault();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailState("error");
+      setEmailMsg("Enter a valid email address.");
+      return;
+    }
+    setEmailState("sending");
+    setEmailMsg(null);
+    try {
+      const res = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itinerary, email }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setEmailState("error");
+        setEmailMsg(data.error || "Could not send the email.");
+        return;
+      }
+      setEmailState("sent");
+      setEmailMsg(`Sent to ${email}.`);
+    } catch {
+      setEmailState("error");
+      setEmailMsg("Could not send the email.");
+    }
+  }
 
   return (
-    <div className="mt-6 border-t border-line pt-5">
-      {url ? (
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <input
-            readOnly
-            value={url}
-            onFocus={(e) => e.currentTarget.select()}
-            aria-label="Shareable link"
-            className="w-full rounded-lg border border-line bg-paper px-3 py-2 text-sm text-muted"
-          />
-          <button type="button" onClick={copy} className="btn-ghost shrink-0">
-            {copied ? "Copied!" : "Copy link"}
-          </button>
-        </div>
-      ) : (
+    <div className="no-print -mt-4 grid gap-3">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
-          onClick={createLink}
-          disabled={saving}
-          className="btn-ghost"
+          onClick={() => window.print()}
+          className="btn-ghost text-sm"
         >
-          {saving ? "Creating link…" : "🔗 Create shareable link"}
+          <Download size={16} /> Export PDF
         </button>
+
+        {emailEnabled && (
+          <button
+            type="button"
+            onClick={() => setShowEmail((s) => !s)}
+            aria-expanded={showEmail}
+            className="btn-ghost text-sm"
+          >
+            <Mail size={16} /> Email this trip
+          </button>
+        )}
+
+        {url ? (
+          <button type="button" onClick={copy} className="btn-ghost text-sm">
+            {copied ? <Check size={16} /> : <LinkIcon size={16} />}
+            {copied ? "Copied!" : "Copy link"}
+          </button>
+        ) : (
+          shareEnabled && (
+            <button
+              type="button"
+              onClick={createLink}
+              disabled={saving}
+              className="btn-ghost text-sm"
+            >
+              <LinkIcon size={16} />
+              {saving ? "Creating link…" : "Create share link"}
+            </button>
+          )
+        )}
+      </div>
+
+      {url && (
+        <input
+          readOnly
+          value={url}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label="Shareable link"
+          className="w-full rounded-lg border border-line bg-surface px-3 py-2 font-mono text-xs text-muted"
+        />
       )}
-      {msg && <p className="mt-2 text-sm text-muted">{msg}</p>}
+      {shareMsg && <p className="text-sm text-muted">{shareMsg}</p>}
+
+      {showEmail && emailEnabled && (
+        <form
+          onSubmit={sendEmail}
+          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+        >
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailState("idle");
+              setEmailMsg(null);
+            }}
+            placeholder="you@example.com"
+            aria-label="Email address"
+            className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+          />
+          <button
+            type="submit"
+            disabled={emailState === "sending" || emailState === "sent"}
+            className="btn-primary shrink-0 text-sm"
+          >
+            {emailState === "sending"
+              ? "Sending…"
+              : emailState === "sent"
+              ? "Sent"
+              : "Send"}
+          </button>
+        </form>
+      )}
+      {emailMsg && (
+        <p
+          className={`text-sm ${
+            emailState === "error" ? "text-accent-dark" : "text-muted"
+          }`}
+        >
+          {emailMsg}
+        </p>
+      )}
     </div>
   );
 }
@@ -275,37 +422,40 @@ function ShareBar({
 function PlaceCard({ place }: { place: EnrichedPlace }) {
   const gem = place.type === "gem";
   return (
-    <article className="rounded-xl border border-line bg-paper/60 p-4">
+    <article className="rounded-lg border border-line bg-paper/50 p-4">
       <div className="flex items-start justify-between gap-3">
         <h4 className="font-medium text-ink">{place.name}</h4>
         <span
-          className={`chip shrink-0 !py-0.5 text-xs ${
+          className={`shrink-0 rounded-full border px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-wider ${
             gem
-              ? "border-teal/40 !text-teal"
-              : "border-accent/40 !text-accent-dark"
+              ? "border-accent/40 text-accent-dark"
+              : "border-line text-muted"
           }`}
         >
           {gem ? "Hidden gem" : "Attraction"}
         </span>
       </div>
-      <p className="mt-1.5 text-sm leading-relaxed text-ink/90">{place.blurb}</p>
+      <p className="mt-2 text-sm leading-relaxed text-ink-soft">{place.blurb}</p>
       <p className="mt-2 text-sm leading-relaxed text-muted">
-        <span className="font-medium text-ink/80">Why it matters: </span>
+        <span className="font-medium text-ink-soft">Why it matters: </span>
         {place.significance}
       </p>
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
-        <span>🕑 {place.bestTime}</span>
+        <span className="inline-flex items-center gap-1.5">
+          <Clock size={13} /> {place.bestTime}
+        </span>
         {place.verified && place.osmUrl ? (
           <a
             href={place.osmUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-teal hover:underline"
+            className="inline-flex items-center gap-1.5 text-ink hover:text-accent"
           >
-            📍 Verified on OpenStreetMap
+            <MapPin size={13} /> Verified on OpenStreetMap
+            <ExternalLink size={11} />
           </a>
         ) : (
-          <span className="text-muted/70">Location unverified</span>
+          <span className="text-faint">Location unverified</span>
         )}
       </div>
     </article>
@@ -314,16 +464,18 @@ function PlaceCard({ place }: { place: EnrichedPlace }) {
 
 function EventCard({ event }: { event: LocalEvent }) {
   return (
-    <article className="rounded-xl border border-line bg-paper/60 p-4">
+    <article className="rounded-lg border border-line bg-paper/50 p-4">
       <div className="flex items-start justify-between gap-3">
         <h4 className="font-medium text-ink">{event.name}</h4>
-        <span className="chip shrink-0 !py-0.5 text-xs">{event.whenTypical}</span>
+        <span className="shrink-0 rounded-full border border-line px-2.5 py-0.5 font-mono text-[0.65rem] text-muted">
+          {event.whenTypical}
+        </span>
       </div>
-      <p className="mt-1.5 text-sm leading-relaxed text-ink/90">
+      <p className="mt-2 text-sm leading-relaxed text-ink-soft">
         {event.description}
       </p>
       <p className="mt-2 text-sm text-muted">
-        <span className="font-medium text-ink/80">Roots: </span>
+        <span className="font-medium text-ink-soft">Roots: </span>
         {event.culturalRoot}
       </p>
     </article>
@@ -332,17 +484,18 @@ function EventCard({ event }: { event: LocalEvent }) {
 
 function ExperienceCard({ exp }: { exp: Experience }) {
   return (
-    <article className="rounded-xl border border-line bg-paper/60 p-4">
+    <article className="rounded-lg border border-line bg-paper/50 p-4">
       <h4 className="font-medium text-ink">{exp.title}</h4>
-      <p className="mt-1.5 text-sm leading-relaxed text-ink/90">
+      <p className="mt-2 text-sm leading-relaxed text-ink-soft">
         {exp.description}
       </p>
       <p className="mt-2 text-sm text-muted">
-        <span className="font-medium text-ink/80">How to engage: </span>
+        <span className="font-medium text-ink-soft">How to engage: </span>
         {exp.howToEngage}
       </p>
-      <p className="mt-2 rounded-lg bg-accent-soft/50 px-3 py-2 text-xs text-accent-dark">
-        ✦ {exp.respectfulTip}
+      <p className="mt-3 flex items-start gap-2 rounded-md bg-accent-soft/50 px-3 py-2 text-xs text-accent-dark">
+        <Star size={13} className="mt-0.5 shrink-0" />
+        {exp.respectfulTip}
       </p>
     </article>
   );
@@ -355,39 +508,44 @@ function Sources({ itinerary }: { itinerary: Itinerary }) {
   ];
   return (
     <section aria-label="Sources" className="card p-5 sm:p-6">
-      <SectionTitle kicker="Grounded in real data" title="Sources" small />
-      <p className="mt-2 text-sm text-muted">
+      <SectionTitle
+        kicker="Grounded in real data"
+        title="Sources"
+        small
+        icon={<BookOpen size={15} />}
+      />
+      <p className="mt-3 text-sm text-muted">
         Places are verified against OpenStreetMap. Heritage context is drawn from
         Wikipedia:
       </p>
       {refs.length > 0 ? (
-        <ul className="mt-2 flex flex-wrap gap-2">
+        <ul className="mt-3 flex flex-wrap gap-2">
           {refs.map((r, i) => (
             <li key={i}>
               <a
                 href={r.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="chip hover:border-accent hover:text-accent-dark"
+                className="chip hover:border-ink hover:text-ink"
               >
-                📖 {r.title}
+                <BookOpen size={13} /> {r.title}
               </a>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="mt-2 text-sm text-muted/70">
+        <p className="mt-2 text-sm text-faint">
           No Wikipedia article matched this destination.
         </p>
       )}
-      <p className="mt-4 text-xs text-muted/70">
+      <p className="mt-5 font-mono text-xs leading-relaxed text-faint">
         Generated by Google Gemini on{" "}
         {new Date(itinerary.generatedAt).toLocaleDateString(undefined, {
           year: "numeric",
           month: "long",
           day: "numeric",
         })}
-        . AI can make mistakes — verify times and bookings before you go.
+        . AI can make mistakes &mdash; verify times and bookings before you go.
       </p>
     </section>
   );
@@ -397,16 +555,21 @@ function SectionTitle({
   kicker,
   title,
   small,
+  icon,
 }: {
   kicker: string;
   title: string;
   small?: boolean;
+  icon?: React.ReactNode;
 }) {
   return (
     <div>
-      <p className="label">{kicker}</p>
+      <p className="label flex items-center gap-1.5">
+        {icon && <span className="text-accent">{icon}</span>}
+        {kicker}
+      </p>
       <h2
-        className={`mt-0.5 font-serif text-ink ${
+        className={`mt-1.5 font-semibold tracking-tight text-ink ${
           small ? "text-lg" : "text-2xl"
         }`}
       >

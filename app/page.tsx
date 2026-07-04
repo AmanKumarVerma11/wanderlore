@@ -1,29 +1,35 @@
 import TripPlanner from "@/components/TripPlanner";
+import { Compass } from "@/components/icons";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
-      <header className="mb-10 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-1.5 text-sm text-muted shadow-soft">
-          <span aria-hidden>🧭</span> Wanderlore
+    <main className="mx-auto max-w-3xl px-5 py-12 sm:py-20">
+      <header className="mb-12">
+        <div className="flex items-center gap-2 text-ink">
+          <Compass size={18} className="text-accent" />
+          <span className="font-mono text-sm font-medium uppercase tracking-[0.2em]">
+            Wanderlore
+          </span>
         </div>
-        <h1 className="mt-5 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+        <h1 className="mt-8 text-4xl font-semibold leading-[1.05] tracking-tightest text-ink sm:text-6xl">
           Discover a place&rsquo;s{" "}
-          <span className="text-accent-dark">soul</span>, not just its sights
+          <span className="text-accent">soul</span>,
+          <br className="hidden sm:block" /> not just its sights.
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-muted">
-          Tell us where you&rsquo;re headed and what moves you. Our AI cultural guide
-          weaves a day-by-day trip of attractions, hidden gems, heritage, local
-          festivals and authentic experiences — every place verified on a real map.
+        <p className="mt-6 max-w-prose text-lg leading-relaxed text-muted">
+          Tell us where you&rsquo;re headed and what moves you. An AI cultural
+          guide weaves a day-by-day trip of attractions, hidden gems, heritage,
+          festivals and authentic experiences &mdash; every place verified on a
+          real map.
         </p>
       </header>
 
       <TripPlanner />
 
-      <footer className="mt-16 border-t border-line pt-6 text-center text-sm text-muted">
-        <p>
-          Real AI (Google Gemini) · places grounded in OpenStreetMap · heritage
-          from Wikipedia. Built for H2S PromptWars.
+      <footer className="mt-20 border-t border-line pt-6">
+        <p className="font-mono text-xs leading-relaxed text-faint">
+          Real AI (Google Gemini) &middot; places grounded in OpenStreetMap
+          &middot; heritage from Wikipedia. Built for H2S PromptWars.
         </p>
       </footer>
     </main>

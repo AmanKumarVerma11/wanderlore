@@ -49,7 +49,7 @@ export default function TripMap({ places, center }: Props) {
       const bounds: [number, number][] = [];
       pins.forEach((p, i) => {
         const gem = p.type === "gem";
-        const color = gem ? "#0e8a8a" : "#e08b2f";
+        const color = gem ? "#e5352b" : "#1a1a1a";
         const icon = L.divIcon({
           className: "",
           html: `<div style="position:relative;transform:translate(-50%,-100%)">

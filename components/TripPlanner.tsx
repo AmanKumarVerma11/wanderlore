@@ -6,11 +6,11 @@ import ItineraryView from "./ItineraryView";
 import type { Itinerary, PlanRequest } from "@/lib/types";
 
 const LOADING_LINES = [
-  "Consulting local guides…",
-  "Uncovering hidden gems…",
-  "Verifying places on the map…",
-  "Reading up on the heritage…",
-  "Weaving your story…",
+  "Consulting local guides",
+  "Uncovering hidden gems",
+  "Verifying places on the map",
+  "Reading up on the heritage",
+  "Weaving your story",
 ];
 
 export default function TripPlanner() {
@@ -18,6 +18,7 @@ export default function TripPlanner() {
   const [error, setError] = useState<string | null>(null);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
   const [shareEnabled, setShareEnabled] = useState(false);
+  const [emailEnabled, setEmailEnabled] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
   async function handleSubmit(req: PlanRequest) {
@@ -37,6 +38,7 @@ export default function TripPlanner() {
       }
       setItinerary(data.itinerary as Itinerary);
       setShareEnabled(Boolean(data.shareEnabled));
+      setEmailEnabled(Boolean(data.emailEnabled));
       setTimeout(
         () => resultRef.current?.scrollIntoView({ behavior: "smooth" }),
         80
@@ -57,7 +59,7 @@ export default function TripPlanner() {
       {error && (
         <div
           role="alert"
-          className="card border-danger/30 bg-danger/5 p-5 text-danger"
+          className="card border-accent/40 bg-accent-soft/40 p-5 text-accent-dark"
         >
           {error}
         </div>
@@ -65,7 +67,11 @@ export default function TripPlanner() {
 
       <div ref={resultRef}>
         {itinerary && (
-          <ItineraryView itinerary={itinerary} shareEnabled={shareEnabled} />
+          <ItineraryView
+            itinerary={itinerary}
+            shareEnabled={shareEnabled}
+            emailEnabled={emailEnabled}
+          />
         )}
       </div>
     </div>
@@ -74,14 +80,17 @@ export default function TripPlanner() {
 
 function LoadingCard() {
   return (
-    <div className="card grid gap-3 p-8" aria-live="polite" aria-busy="true">
+    <div className="card grid gap-4 p-8" aria-live="polite" aria-busy="true">
       <div className="flex items-center gap-3">
-        <span className="h-5 w-5 animate-spin rounded-full border-2 border-accent border-t-transparent" />
-        <span className="font-medium text-ink">Weaving your cultural trip…</span>
+        <span className="h-4 w-4 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+        <span className="font-medium text-ink">Weaving your cultural trip</span>
       </div>
-      <ul className="grid gap-1.5 text-sm text-muted">
+      <ul className="grid gap-2 font-mono text-sm text-muted">
         {LOADING_LINES.map((l) => (
-          <li key={l}>• {l}</li>
+          <li key={l} className="flex items-center gap-2">
+            <span className="h-1 w-1 rounded-full bg-accent" />
+            {l}
+          </li>
         ))}
       </ul>
     </div>

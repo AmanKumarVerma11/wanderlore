@@ -120,9 +120,9 @@ export default function PlanForm({ onSubmit, loading }: Props) {
                   type="button"
                   onClick={() => setPace(p)}
                   aria-pressed={pace === p}
-                  className={`rounded-lg px-2 py-2 text-sm transition ${
+                  className={`rounded-md px-2 py-2 text-sm transition-colors ${
                     pace === p
-                      ? "bg-accent font-medium text-white shadow-soft"
+                      ? "bg-ink font-medium text-white"
                       : "text-muted hover:text-ink"
                   }`}
                 >
@@ -149,7 +149,7 @@ export default function PlanForm({ onSubmit, loading }: Props) {
         </div>
 
         {error && (
-          <p role="alert" className="text-sm text-danger">
+          <p role="alert" className="text-sm text-accent-dark">
             {error}
           </p>
         )}
