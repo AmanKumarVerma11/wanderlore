@@ -11,7 +11,11 @@
 const NOMINATIM = "https://nominatim.openstreetmap.org/search";
 const UA = "Wanderlore/1.0 (cultural trip planner; https://github.com/AmanKumarVerma11)";
 const PACE_MS = 1100; // ~1 request/second
-const MAX_CALLS = 26; // hard cap on Nominatim calls per itinerary (bounds latency)
+// Hard cap on Nominatim calls per itinerary. Sequential + 1.1s throttle means
+// latency is ~MAX_CALLS seconds, so this is the dominant time budget. Kept tight
+// enough that the slower ensemble path (panel + synthesis) still finishes well
+// under the 60s serverless limit.
+const MAX_CALLS = 20;
 
 export interface GeoResult {
   lat: number;

@@ -1,4 +1,8 @@
 import type { ModelItinerary, PlanRequest } from "./types";
+import { buildPrompt } from "./prompts";
+
+// Re-export so existing callers/tests importing buildPrompt from here keep working.
+export { buildPrompt } from "./prompts";
 
 /**
  * Real Google Gemini call (no mocks, no canned output).
@@ -98,46 +102,6 @@ const responseSchema = {
   ],
 } as const;
 
-export function buildPrompt(req: PlanRequest): string {
-  const itemsPerDay =
-    req.pace === "relaxed" ? "2-3" : req.pace === "packed" ? "4-5" : "3-4";
-  return [
-    "You are a knowledgeable local cultural guide and storyteller. Craft a rich,",
-    "authentic cultural discovery plan for a traveller. Prioritise meaningful,",
-    "respectful engagement with local culture over generic tourist checklists.",
-    "",
-    "Traveller brief:",
-    `- Destination: ${req.destination}`,
-    `- Interests: ${req.interests.join(", ")}`,
-    `- Trip length: ${req.days} day(s)`,
-    `- Pace: ${req.pace} (about ${itemsPerDay} places per day)`,
-    req.note ? `- Notes: ${req.note}` : "- Notes: none",
-    "",
-    "Produce:",
-    "1. destinationFull: the destination as 'City, Country' (resolve informal names).",
-    "2. story: 2-3 vivid paragraphs telling the cultural soul and history of the",
-    "   place — immersive storytelling that makes the reader feel its atmosphere.",
-    "3. heritageSummary: 2-4 sentences on the heritage that defines it (traditions,",
-    "   UNESCO sites, crafts, cuisine) and why it matters.",
-    "4. days: one entry per day with a theme and a mix of items. Each item is a real,",
-    "   verifiable place. Mark famous sites as type 'attraction' and lesser-known,",
-    "   locally-loved spots as type 'gem'. Include at least one 'gem' most days.",
-    "   For geoQuery give ONE specific, mappable place as 'Place, City, Country'",
-    "   (a single named site — never a list, range, or 'A and B'; pick the main one).",
-    "5. localSecrets: 3-5 extra hidden gems (type 'gem') a typical tourist misses.",
-    "6. events: 3-5 established, recurring cultural events/festivals. For whenTypical",
-    "   give the usual season or month (e.g. 'Mid-July, annually') — never invent an",
-    "   exact date. Only include events you are confident genuinely recur there.",
-    "7. experiences: 3-5 authentic, participatory cultural experiences (workshops,",
-    "   ceremonies, shared meals) with how to engage and a respectful tip.",
-    "8. phrases: 4-6 useful local-language phrases with meanings.",
-    "9. etiquette: 4-6 concise cultural etiquette / respect tips.",
-    "",
-    "Be accurate. Only name places and events that genuinely exist. If unsure a",
-    "place is real, omit it. Return ONLY JSON matching the provided schema.",
-  ].join("\n");
-}
-
 export class GeminiError extends Error {
   status: number;
   constructor(message: string, status = 502) {
@@ -147,8 +111,13 @@ export class GeminiError extends Error {
   }
 }
 
-export async function generateItinerary(
-  req: PlanRequest
+/**
+ * Core Gemini structured call: send an arbitrary prompt, get strict
+ * `ModelItinerary` JSON back (enforced by `responseSchema`). Shared by the
+ * single-model plan and by ensemble synthesis (lib/orchestrator.ts).
+ */
+export async function geminiStructured(
+  promptText: string
 ): Promise<ModelItinerary> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -161,7 +130,7 @@ export async function generateItinerary(
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
   const body = {
-    contents: [{ role: "user", parts: [{ text: buildPrompt(req) }] }],
+    contents: [{ role: "user", parts: [{ text: promptText }] }],
     generationConfig: {
       temperature: 0.8,
       responseMimeType: "application/json",
@@ -222,6 +191,11 @@ export async function generateItinerary(
   } catch {
     throw new GeminiError("The model returned malformed JSON.", 502);
   }
+}
+
+/** Single-model itinerary (phase 1 path; also the ensemble's terminal fallback). */
+export function generateItinerary(req: PlanRequest): Promise<ModelItinerary> {
+  return geminiStructured(buildPrompt(req));
 }
 
 interface GeminiApiResponse {
