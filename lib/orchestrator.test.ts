@@ -55,7 +55,7 @@ describe("generateItineraryEnsemble", () => {
 
     expect(model).toBe(ENSEMBLE);
     expect(meta.mode).toBe("ensemble");
-    expect(meta.panelistsUsed).toBe(3);
+    expect(meta.panelistsUsed).toBe(2); // default panel = 2 fast models
     expect(meta.degraded).toBe(false);
     expect(geminiStructured).toHaveBeenCalledTimes(1);
     expect(generateItinerary).not.toHaveBeenCalled();

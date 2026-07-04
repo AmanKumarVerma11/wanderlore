@@ -12,8 +12,11 @@ import { isNvidiaEnabled, nvidiaChat } from "./nvidia";
 import { geminiStructured, generateItinerary } from "./gemini";
 import { buildPanelistPrompt, buildSynthesisPrompt } from "./prompts";
 
+// Fast, reliable panelists (measured on this key): Mistral-Large-3 ~0.4s and
+// GPT-OSS-120B ~0.6s to first token. Nemotron-3-super is a *reasoning* model
+// (~20s even for a tiny reply) so it is excluded by default — too slow for the
+// 60s serverless budget. Add more via NVIDIA_PANEL_MODELS if you have headroom.
 const DEFAULT_PANEL = [
-  "nvidia/nemotron-3-super-120b-a12b",
   "mistralai/mistral-large-3-675b-instruct-2512",
   "openai/gpt-oss-120b",
 ];
@@ -25,7 +28,7 @@ function panelModels(): string[] {
   return list.length ? list : DEFAULT_PANEL;
 }
 
-const PANEL_TIMEOUT_MS = Number(process.env.PANEL_TIMEOUT_MS) || 12000;
+const PANEL_TIMEOUT_MS = Number(process.env.PANEL_TIMEOUT_MS) || 14000;
 const MIN_QUORUM = Number(process.env.PANEL_MIN_QUORUM) || 1;
 const MAX_GEO_PLACES = Number(process.env.MAX_GEO_PLACES) || 15;
 
@@ -51,8 +54,8 @@ async function callPanelist(model: string, prompt: string): Promise<PanelOutcome
     const text = await nvidiaChat({
       model,
       prompt,
-      maxTokens: 1600,
-      temperature: 0.85,
+      maxTokens: 900,
+      temperature: 0.9,
       signal: controller.signal,
     });
     return { model, ok: true, ms: Date.now() - start, text };
