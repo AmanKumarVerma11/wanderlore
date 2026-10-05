@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+// next/font downloads these at build time and serves them from this site, so the
+// CSP's font-src 'self' still holds and no font request leaves for Google.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -12,10 +14,17 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
+const display = Instrument_Serif({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 const SITE_URL = "https://wanderlore.amankrverma.in";
 const DESCRIPTION =
-  "Wanderlore is an AI cultural trip planner. Tell it where you're headed and it weaves a day-by-day journey of attractions, hidden gems, heritage, local festivals and authentic experiences — every place verified on a real OpenStreetMap map.";
+  "Wanderlore is an AI cultural trip planner. Tell it where you're headed and it weaves a day-by-day journey of attractions, hidden gems, heritage, local festivals and authentic experiences, with every place checked against OpenStreetMap.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -72,8 +81,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
-      <body className="font-sans">{children}</body>
+    <html lang="en" className={`${inter.variable} ${mono.variable} ${display.variable}`}>
+      <body className="font-sans">
+        <a href="#main" className="skip-link">
+          Skip to main content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

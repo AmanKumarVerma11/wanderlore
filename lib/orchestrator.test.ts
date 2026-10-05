@@ -8,6 +8,8 @@ vi.mock("./nvidia", () => ({
   nvidiaChat: vi.fn(),
 }));
 vi.mock("./gemini", () => ({
+  GENERATION_MIN_MS: 35_000,
+  GeminiError: class GeminiError extends Error {},
   geminiStructured: vi.fn(),
   generateItinerary: vi.fn(),
 }));
@@ -31,8 +33,8 @@ const SINGLE = { destinationFull: "Kyoto, Japan (single)" } as ModelItinerary;
 
 beforeEach(() => {
   vi.clearAllMocks();
-  vi.mocked(geminiStructured).mockResolvedValue(ENSEMBLE);
-  vi.mocked(generateItinerary).mockResolvedValue(SINGLE);
+  vi.mocked(geminiStructured).mockResolvedValue({ itinerary: ENSEMBLE, model: "m", attempts: [] });
+  vi.mocked(generateItinerary).mockResolvedValue({ itinerary: SINGLE, model: "m", attempts: [] });
 });
 
 describe("generateItineraryEnsemble", () => {
@@ -44,6 +46,17 @@ describe("generateItineraryEnsemble", () => {
     expect(model).toBe(SINGLE);
     expect(meta.mode).toBe("single");
     expect(meta.degraded).toBe(false);
+    expect(nvidiaChat).not.toHaveBeenCalled();
+  });
+
+  it("skips the panel when the deadline leaves no time for it", async () => {
+    vi.mocked(isNvidiaEnabled).mockReturnValue(true);
+
+    // 38s left: generation and grounding need 35s, so the panel would get 3s.
+    const { model, meta } = await generateItineraryEnsemble(REQ, { deadline: Date.now() + 38_000 });
+
+    expect(model).toBe(SINGLE);
+    expect(meta.mode).toBe("single");
     expect(nvidiaChat).not.toHaveBeenCalled();
   });
 

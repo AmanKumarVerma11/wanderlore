@@ -25,10 +25,13 @@ export default function TripMap({ places, center }: Props) {
     if (!ref.current) return;
 
     let map: import("leaflet").Map | null = null;
+    // The cleanup can run before the async import resolves (React Strict Mode runs
+    // effects twice in dev), so a cancelled run must not create a second map.
+    let cancelled = false;
 
     (async () => {
       const L = (await import("leaflet")).default;
-      if (!ref.current) return;
+      if (cancelled || !ref.current) return;
 
       const start: [number, number] = center
         ? [center.lat, center.lng]
@@ -41,15 +44,18 @@ export default function TripMap({ places, center }: Props) {
         pins.length ? 13 : 3
       );
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap contributors",
+      // OSM tile policy: use the bare host, and link the attribution to /copyright.
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
         maxZoom: 19,
       }).addTo(map);
 
       const bounds: [number, number][] = [];
       pins.forEach((p, i) => {
         const gem = p.type === "gem";
-        const color = gem ? "#e5352b" : "#1a1a1a";
+        // The theme's darker red and ink: white numbers on them are 6.4:1 and 18:1.
+        const color = gem ? "#be111e" : "#161616";
         const icon = L.divIcon({
           className: "",
           html: `<div style="position:relative;transform:translate(-50%,-100%)">
@@ -75,6 +81,7 @@ export default function TripMap({ places, center }: Props) {
     })();
 
     return () => {
+      cancelled = true;
       if (map) map.remove();
     };
   }, [places, center]);
@@ -82,13 +89,13 @@ export default function TripMap({ places, center }: Props) {
   const verifiedCount = places.filter((p) => p.verified).length;
   if (verifiedCount === 0) {
     return (
-      <div className="card grid h-64 place-items-center p-6 text-center text-sm text-muted">
+      <div className="grid h-64 place-items-center bg-line-soft p-6 text-center text-sm text-muted">
         No map locations could be verified for this trip.
       </div>
     );
   }
 
-  return <div ref={ref} className="h-[22rem] w-full" aria-label="Map of recommended places" />;
+  return <div ref={ref} role="region" className="h-[22rem] w-full" aria-label="Map of recommended places" />;
 }
 
 function escapeHtml(s: string): string {

@@ -2,124 +2,269 @@
 // Every place the model names is looked up here; only ones OSM confirms get a
 // map pin. This is our grounding layer — it keeps hallucinated places off the map.
 //
-// Nominatim's free-text matching is inconsistent: for the same real place, one
-// query phrasing resolves while another returns nothing (e.g. "Dashashwamedh Ghat"
-// hits but "Dashashwamedh Ghat, Varanasi, India" misses). So we try a few shapes
-// per place and take the first hit. All requests are globally throttled to stay
-// within Nominatim's ~1 req/sec fair-use policy, and a call budget bounds latency.
+// Lookups are bounded to the destination: the destination is geocoded first, and
+// each place is searched only inside its bounding box (plus a margin) and country.
+// Unbounded name-only searches used to "verify" places on other continents (on
+// 2026-10-03 Kyoto's Philosopher's Path matched a poetry path in Scotland).
+//
+// Nominatim's usage policy: at most 1 request/second across the whole app, results
+// must be cached, and apps must be able to switch to another server on request.
 
-const NOMINATIM = "https://nominatim.openstreetmap.org/search";
+import { cacheGet, cacheSet } from "./cache";
+import { isKvEnabled, kv } from "./kv";
+import { startSpan } from "./trace";
+import type { GeoStatus } from "./types";
+
+const NOMINATIM = process.env.NOMINATIM_URL || "https://nominatim.openstreetmap.org/search";
 const UA = "Wanderlore/1.0 (cultural trip planner; https://github.com/AmanKumarVerma11)";
 const PACE_MS = 1100; // ~1 request/second
-// Hard cap on Nominatim calls per itinerary. Sequential + 1.1s throttle means
-// latency is ~MAX_CALLS seconds, so this is the dominant time budget. Kept tight
-// enough that the slower ensemble path (panel + synthesis) still finishes well
-// under the 60s serverless limit.
-const MAX_CALLS = 20;
+// Network lookups per itinerary (cache hits are free). One per mapped place, plus
+// a few second tries; the plan caps mapped places at 20 (lib/prompts.ts).
+const MAX_CALLS = 24;
+const MARGIN_KM = 30; // day trips just outside the destination still count
+const DAY = 86_400;
 
 export interface GeoResult {
   lat: number;
   lng: number;
   osmUrl: string;
+  name?: string; // OSM's name for it (missing on results cached before it was kept)
+  nameMatch?: boolean; // one of OSM's names for it has every word that was searched
+}
+
+export interface Destination {
+  lat: number;
+  lng: number;
+  bbox: [number, number, number, number]; // south, north, west, east
+  countryCode: string | null;
+  displayName: string;
+}
+
+
+export interface PlaceLookup {
+  status: GeoStatus;
+  geo: GeoResult | null;
+  matchedName?: string; // set by repair: the name OSM knows it by
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-// Global throttle shared across all lookups in a request (and reused across
-// requests in a warm serverless instance) so we never burst Nominatim.
+// Per-instance pacing, plus a shared 1-second slot when the KV store is
+// configured, because the limit applies to all of the app's traffic combined.
+// Calls queue on one promise chain, so concurrent requests in the same instance
+// (Fluid compute runs several at once) can't both read lastCallAt and fire together.
 let lastCallAt = 0;
-async function throttle() {
-  const now = Date.now();
-  const wait = PACE_MS - (now - lastCallAt);
-  if (wait > 0) await sleep(wait);
-  lastCallAt = Date.now();
+let queue: Promise<void> = Promise.resolve();
+function paced(): Promise<void> {
+  const turn = queue.then(async () => {
+    const wait = PACE_MS - (Date.now() - lastCallAt);
+    if (wait > 0) await sleep(wait);
+    lastCallAt = Date.now();
+  });
+  queue = turn;
+  return turn;
 }
 
-/**
- * Build a few query shapes for one place, most-specific first, deduped:
- *  1. the model's full "Name, City, Country"
- *  2. "Name, City" (drop country + any middle locality)
- *  3. "Name City" (no punctuation — Nominatim sometimes prefers this)
- *  4. "Name" alone
- */
-export function queryVariants(query: string): string[] {
-  const parts = query
-    .split(",")
-    .map((s) => s.replace(/\(.*?\)/g, "").trim())
-    .filter(Boolean);
-  const name = parts[0] || query.trim();
-  const variants = [query.trim()];
-  if (parts.length >= 2) {
-    // City = last segment that isn't an obvious country-level token.
-    const city = parts.length >= 3 ? parts[parts.length - 2] : parts[1];
-    variants.push(`${name}, ${city}`);
-    variants.push(`${name} ${city}`);
+async function takeSlot(deadline: number): Promise<boolean> {
+  await paced();
+  if (isKvEnabled()) {
+    while (Date.now() < deadline) {
+      const got = await kv(["SET", "nominatim:slot", "1", "PX", PACE_MS, "NX"]);
+      if (got !== null) break; // "OK", or undefined when the store is unreachable
+      await sleep(250);
+    }
   }
-  variants.push(name);
-  return Array.from(new Set(variants));
+  return Date.now() < deadline;
 }
 
-async function fetchGeo(query: string): Promise<GeoResult | null> {
-  await throttle();
-  const url = `${NOMINATIM}?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`;
+interface NominatimHit {
+  lat: string;
+  lon: string;
+  osm_type?: string;
+  osm_id?: number;
+  boundingbox?: string[];
+  name?: string;
+  namedetails?: Record<string, string>; // every name: alt_name, name:en, old_name...
+  display_name?: string;
+  address?: { country_code?: string };
+}
+
+/** The top hit; null when OSM has no match; undefined when the request failed
+ *  (failures are never cached, so an outage can't poison the cache). The request
+ *  ends by the deadline: a slow last lookup must not push past it. */
+async function search(
+  params: Record<string, string>,
+  deadline: number
+): Promise<NominatimHit | null | undefined> {
+  const url = `${NOMINATIM}?${new URLSearchParams({ format: "jsonv2", limit: "1", ...params })}`;
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
+  const timeout = setTimeout(() => controller.abort(), Math.min(8000, deadline - Date.now()));
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": UA, Accept: "application/json" },
       signal: controller.signal,
     });
-    if (!res.ok) return null;
-    const data = (await res.json()) as Array<{
-      lat: string;
-      lon: string;
-      osm_type?: string;
-      osm_id?: number;
-    }>;
-    const hit = data?.[0];
-    if (!hit) return null;
-    const lat = Number.parseFloat(hit.lat);
-    const lng = Number.parseFloat(hit.lon);
-    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
-    const osmUrl =
-      hit.osm_type && hit.osm_id
-        ? `https://www.openstreetmap.org/${hit.osm_type}/${hit.osm_id}`
-        : `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=16/${lat}/${lng}`;
-    return { lat, lng, osmUrl };
+    if (!res.ok) return undefined;
+    const data = (await res.json()) as NominatimHit[];
+    return data?.[0] ?? null;
   } catch {
-    return null;
+    return undefined;
   } finally {
     clearTimeout(timeout);
   }
 }
 
+/** Case, accents and punctuation folded away: "Hanavský pavilon" -> "hanavsky pavilon". */
+const fold = (s: string) =>
+  s.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+
 /**
- * Geocode many queries, deduped, trying multiple query shapes per place until one
- * resolves. Order of results matches input order; null means "unverified" (shown
- * but flagged) rather than a hard failure. A global call budget bounds latency.
+ * True when one of the names contains every word of the query. Nominatim's
+ * search is loose: asked for "Làng hoa Ngọc Hà" (a Hanoi flower village), its top
+ * hit was a community centre in the next province that shares one word.
  */
-export async function geocodeMany(
-  queries: string[]
-): Promise<Array<GeoResult | null>> {
-  const cache = new Map<string, GeoResult | null>();
-  const results: Array<GeoResult | null> = new Array(queries.length).fill(null);
+export function nameMatches(query: string, names: string[]): boolean {
+  const words = fold(query).split(" ").filter(Boolean);
+  return (
+    words.length > 0 &&
+    names.some((n) => {
+      const have = new Set(fold(n).split(" "));
+      return words.every((w) => have.has(w));
+    })
+  );
+}
+
+/** `query` is what was searched, so the result says whether OSM calls it that. */
+function toGeo(hit: NominatimHit, query?: string): GeoResult | null {
+  const lat = Number.parseFloat(hit.lat);
+  const lng = Number.parseFloat(hit.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+  const osmUrl =
+    hit.osm_type && hit.osm_id
+      ? `https://www.openstreetmap.org/${hit.osm_type}/${hit.osm_id}`
+      : `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=16/${lat}/${lng}`;
+  const name = (hit.name || hit.display_name?.split(",")[0] || "").trim();
+  const geo: GeoResult = name ? { lat, lng, osmUrl, name } : { lat, lng, osmUrl };
+  if (query) geo.nameMatch = nameMatches(query, [name, ...Object.values(hit.namedetails ?? {})]);
+  return geo;
+}
+
+const normalize = (s: string) => s.trim().replace(/\s+/g, " ").toLowerCase();
+
+/**
+ * Geocode the destination itself. Null means OSM has no such place; undefined
+ * means the lookup couldn't be made (Nominatim down, or no time left).
+ */
+export async function geocodeDestination(
+  query: string,
+  deadline = Date.now() + 10_000
+): Promise<Destination | null | undefined> {
+  const end = startSpan("destination", query);
+  const key = `dest:v1:${normalize(query)}`;
+  const cached = await cacheGet<Destination | null>(key);
+  if (cached !== undefined) {
+    end(cached ? "found" : "not found", { cached: true });
+    return cached;
+  }
+  if (!(await takeSlot(deadline))) {
+    end("no time");
+    return undefined;
+  }
+
+  const hit = await search({ q: query, addressdetails: "1" }, deadline);
+  if (hit === undefined) {
+    end("failed");
+    return undefined;
+  }
+  const geo = hit && toGeo(hit);
+  const box = hit?.boundingbox?.map(Number);
+  const dest: Destination | null =
+    hit && geo && box?.length === 4 && box.every(Number.isFinite)
+      ? {
+          lat: geo.lat,
+          lng: geo.lng,
+          bbox: box as Destination["bbox"],
+          countryCode: hit.address?.country_code ?? null,
+          displayName: hit.display_name ?? query,
+        }
+      : null;
+  await cacheSet(key, dest, dest ? 30 * DAY : DAY);
+  end(dest ? "found" : "not found");
+  return dest;
+}
+
+/** The destination box grown by MARGIN_KM on every side, as Nominatim's viewbox. */
+export function viewbox(dest: Destination): string {
+  const [s, n, w, e] = dest.bbox;
+  const dLat = MARGIN_KM / 111;
+  const dLng = MARGIN_KM / (111 * Math.cos((((s + n) / 2) * Math.PI) / 180));
+  const r = (x: number) => x.toFixed(4);
+  return [r(w - dLng), r(n + dLat), r(e + dLng), r(s - dLat)].join(",");
+}
+
+/**
+ * Query shapes for one place, tried in order: the place name as the model wrote
+ * it (often the local-language name OSM uses), then the first part of its
+ * geoQuery (often the English name). Parenthetical notes are dropped.
+ */
+export function boundedQueries(place: { name: string; geoQuery: string }): string[] {
+  const clean = (s: string) => s.replace(/\(.*?\)/g, "").replace(/\s+/g, " ").trim();
+  const shapes = [clean(place.name), clean(place.geoQuery.split(",")[0] ?? "")];
+  return Array.from(new Set(shapes.filter((q) => q.length >= 2)));
+}
+
+/**
+ * Look up every place inside the destination. Breadth-first: each place gets its
+ * first query before any place gets a second, so the call budget never leaves a
+ * place unchecked while another is retried. Results are in input order.
+ * Repair lookups search a name the model says OSM uses, so a hit counts only if
+ * one of OSM's names for it matches; they show up in the trace as their own step.
+ */
+export async function geocodePlaces(
+  places: Array<{ name: string; geoQuery: string }>,
+  dest: Destination,
+  deadline = Date.now() + 30_000,
+  { repair = false }: { repair?: boolean } = {}
+): Promise<PlaceLookup[]> {
+  const span = repair ? "repair-lookup" : "lookup";
+  const box = viewbox(dest);
+  const bounds: Record<string, string> = { viewbox: box, bounded: "1", namedetails: "1" };
+  if (dest.countryCode) bounds.countrycodes = dest.countryCode;
+  // Results cached before nameMatch was kept fall back to the main name.
+  const accept = (geo: GeoResult, q: string) =>
+    !repair || (geo.nameMatch ?? nameMatches(q, [geo.name ?? ""]));
+  const outcome = (geo: GeoResult | null, q: string) =>
+    !geo ? "not found" : accept(geo, q) ? "found" : "found, other name";
+
+  const results: PlaceLookup[] = places.map(() => ({ status: "unchecked", geo: null }));
+  const queries = places.map(boundedQueries);
+  const cutoff = deadline - 1500; // leave time for the last request itself
   let calls = 0;
 
-  for (let i = 0; i < queries.length; i++) {
-    const q = queries[i];
-    if (cache.has(q)) {
-      results[i] = cache.get(q) ?? null;
-      continue;
+  for (let pass = 0; pass < 2; pass++) {
+    for (let i = 0; i < places.length; i++) {
+      const q = queries[i][pass];
+      if (!q || results[i].status === "verified") continue;
+      const key = `geo:v1:${dest.countryCode ?? "-"}:${box}:${normalize(q)}`;
+      let geo = await cacheGet<GeoResult | null>(key);
+      if (geo !== undefined) {
+        startSpan(span, q)(outcome(geo, q), { cached: true });
+      } else {
+        // Past the cutoff, skip without queueing: each queued turn costs 1.1s.
+        if (calls >= MAX_CALLS || Date.now() >= cutoff || !(await takeSlot(cutoff))) continue;
+        calls++;
+        const end = startSpan(span, q);
+        const hit = await search({ q, ...bounds }, deadline);
+        if (hit === undefined) {
+          end("failed"); // request failed: leave the status as it was
+          continue;
+        }
+        geo = hit ? toGeo(hit, q) : null;
+        end(outcome(geo, q));
+        await cacheSet(key, geo, geo ? 30 * DAY : 7 * DAY);
+      }
+      results[i] = geo && accept(geo, q) ? { status: "verified", geo } : { status: "not_found", geo: null };
     }
-    let hit: GeoResult | null = null;
-    for (const variant of queryVariants(q)) {
-      if (calls >= MAX_CALLS) break;
-      calls++;
-      hit = await fetchGeo(variant);
-      if (hit) break;
-    }
-    cache.set(q, hit);
-    results[i] = hit;
   }
   return results;
 }

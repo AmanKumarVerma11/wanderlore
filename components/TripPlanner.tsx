@@ -3,22 +3,23 @@
 import { useRef, useState } from "react";
 import PlanForm from "./PlanForm";
 import ItineraryView from "./ItineraryView";
-import type { Itinerary, PlanRequest } from "@/lib/types";
+import type { Itinerary, PlanRequest, PlanTrace } from "@/lib/types";
 
+// What the server actually does, in order (see lib/plan.ts).
 const LOADING_LINES = [
-  "Consulting local guides",
-  "Uncovering hidden gems",
-  "Verifying places on the map",
+  "Finding the destination on the map",
+  "Writing the plan",
+  "Checking every place on OpenStreetMap",
+  "Asking for local names of any misses",
   "Reading up on the heritage",
-  "Weaving your story",
 ];
 
 export default function TripPlanner() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
+  const [trace, setTrace] = useState<PlanTrace | undefined>(undefined);
   const [shareEnabled, setShareEnabled] = useState(false);
-  const [emailEnabled, setEmailEnabled] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
   async function handleSubmit(req: PlanRequest) {
@@ -37,10 +38,11 @@ export default function TripPlanner() {
         return;
       }
       setItinerary(data.itinerary as Itinerary);
+      setTrace(data.trace as PlanTrace | undefined);
       setShareEnabled(Boolean(data.shareEnabled));
-      setEmailEnabled(Boolean(data.emailEnabled));
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       setTimeout(
-        () => resultRef.current?.scrollIntoView({ behavior: "smooth" }),
+        () => resultRef.current?.scrollIntoView({ behavior: still ? "auto" : "smooth" }),
         80
       );
     } catch {
@@ -51,7 +53,7 @@ export default function TripPlanner() {
   }
 
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-10">
       <PlanForm onSubmit={handleSubmit} loading={loading} />
 
       {loading && <LoadingCard />}
@@ -59,18 +61,18 @@ export default function TripPlanner() {
       {error && (
         <div
           role="alert"
-          className="card border-accent/40 bg-accent-soft/40 p-5 text-accent-dark"
+          className="rounded-2xl border-2 border-accent-dark bg-accent-soft p-5 font-medium text-accent-dark"
         >
           {error}
         </div>
       )}
 
-      <div ref={resultRef}>
+      <div ref={resultRef} className="scroll-mt-6">
         {itinerary && (
           <ItineraryView
             itinerary={itinerary}
             shareEnabled={shareEnabled}
-            emailEnabled={emailEnabled}
+            trace={trace}
           />
         )}
       </div>
@@ -80,19 +82,22 @@ export default function TripPlanner() {
 
 function LoadingCard() {
   return (
-    <div className="card grid gap-4 p-8" aria-live="polite" aria-busy="true">
-      <div className="flex items-center gap-3">
-        <span className="h-4 w-4 animate-spin rounded-full border-2 border-accent border-t-transparent" />
-        <span className="font-medium text-ink">Weaving your cultural trip</span>
-      </div>
-      <ul className="grid gap-2 font-mono text-sm text-muted">
-        {LOADING_LINES.map((l) => (
-          <li key={l} className="flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full bg-accent" />
+    <div className="frame p-8 sm:p-10" role="status" aria-live="polite">
+      <p className="label">Working on it</p>
+      <p className="display mt-3 text-4xl sm:text-6xl">
+        Weaving your trip<span className="animate-pulse text-accent">&hellip;</span>
+      </p>
+      <ol className="mt-8 grid gap-2.5">
+        {LOADING_LINES.map((l, i) => (
+          <li key={l} className="flex items-center gap-4 font-mono text-sm text-ink-soft">
+            <span className="text-accent-dark">0{i + 1}</span>
             {l}
           </li>
         ))}
-      </ul>
+      </ol>
+      <p className="mt-8 border-t-2 border-ink pt-4 text-sm text-muted">
+        This usually takes 20 to 40 seconds: the map is asked about one place a second.
+      </p>
     </div>
   );
 }

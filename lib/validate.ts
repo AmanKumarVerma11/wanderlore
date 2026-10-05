@@ -1,4 +1,5 @@
-import type { PlanRequest, Pace } from "./types";
+import type { Itinerary, PlanRequest, Pace } from "./types";
+import { safeHttpsUrl } from "./safe-url";
 
 // The interests a traveller can pick. Kept as a closed set so the prompt and UI
 // stay in sync and the model can't be steered by arbitrary free text here.
@@ -84,4 +85,27 @@ export function validatePlanRequest(input: unknown): ValidationResult {
       note: note && note.length > 0 ? note : undefined,
     },
   };
+}
+
+/**
+ * Check a client-supplied itinerary before it is stored for a share link. The
+ * share page renders its URLs as links and images, so every URL must pass
+ * safeHttpsUrl; otherwise anyone could mint a share link that runs script.
+ */
+export function isSavableItinerary(value: unknown): value is Itinerary {
+  if (typeof value !== "object" || value === null) return false;
+  const it = value as Partial<Itinerary>;
+  if (typeof it.destinationFull !== "string" || !Array.isArray(it.days)) {
+    return false;
+  }
+  const places = [
+    ...it.days.flatMap((d) => (Array.isArray(d?.items) ? d.items : [])),
+    ...(Array.isArray(it.localSecrets) ? it.localSecrets : []),
+  ];
+  const refs = [it.hero, ...(Array.isArray(it.sources) ? it.sources : [])];
+  const urls = [
+    ...places.map((p) => p?.osmUrl),
+    ...refs.flatMap((r) => [r?.url, r?.image, r?.imageCredit?.fileUrl, r?.imageCredit?.licenseUrl]),
+  ].filter((u) => u !== null && u !== undefined);
+  return urls.every((u) => safeHttpsUrl(u) !== null);
 }

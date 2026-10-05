@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { isSupabaseEnabled, saveItinerary } from "@/lib/supabase";
-import type { Itinerary } from "@/lib/types";
+import { isSavableItinerary } from "@/lib/validate";
 
 export const runtime = "nodejs";
+
+// A real 7-day itinerary is about 27 KB of JSON; anything far larger is not ours.
+const MAX_BODY_CHARS = 200_000;
 
 export async function POST(request: Request) {
   if (!isSupabaseEnabled()) {
@@ -12,14 +15,19 @@ export async function POST(request: Request) {
     );
   }
 
-  let itinerary: Itinerary;
+  const raw = await request.text();
+  if (raw.length > MAX_BODY_CHARS) {
+    return NextResponse.json({ error: "Itinerary is too large to save." }, { status: 413 });
+  }
+
+  let itinerary: unknown;
   try {
-    const body = (await request.json()) as { itinerary?: Itinerary };
-    if (!body?.itinerary?.destinationFull || !Array.isArray(body.itinerary.days)) {
-      throw new Error("bad shape");
-    }
-    itinerary = body.itinerary;
+    itinerary = (JSON.parse(raw) as { itinerary?: unknown })?.itinerary;
   } catch {
+    itinerary = null;
+  }
+  // Checked before any database call: the share page renders these URLs.
+  if (!isSavableItinerary(itinerary)) {
     return NextResponse.json({ error: "Invalid itinerary payload." }, { status: 400 });
   }
 

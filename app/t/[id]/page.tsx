@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getItinerary } from "@/lib/supabase";
-import { isEmailEnabled } from "@/lib/email";
 import ItineraryView from "@/components/ItineraryView";
 import { Compass, ArrowRight } from "@/components/icons";
 
@@ -11,21 +10,22 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const it = await getItinerary(params.id);
+  const { id } = await params;
+  const it = await getItinerary(id);
   if (!it) return { title: "Trip not found — Wanderlore" };
   const title = `${it.destinationFull} — a cultural trip`;
   const description = it.heritageSummary?.slice(0, 200) || undefined;
   return {
     title,
     description,
-    alternates: { canonical: `/t/${params.id}` },
+    alternates: { canonical: `/t/${id}` },
     openGraph: {
       type: "article",
       title: `${title} · Wanderlore`,
       description,
-      url: `/t/${params.id}`,
+      url: `/t/${id}`,
     },
     twitter: { card: "summary_large_image", title, description },
   };
@@ -34,33 +34,30 @@ export async function generateMetadata({
 export default async function SharedTripPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const itinerary = await getItinerary(params.id);
+  const { id } = await params;
+  const itinerary = await getItinerary(id);
 
   return (
-    <main className="mx-auto max-w-3xl px-5 py-10 sm:py-14">
-      <div className="mb-10 flex items-center justify-between">
+    <main id="main" className="mx-auto max-w-5xl px-5 py-10 sm:py-14">
+      <div className="mb-12 flex items-center justify-between gap-4 border-b-2 border-ink pb-4">
         <Link href="/" className="flex items-center gap-2 text-ink">
-          <Compass size={18} className="text-accent" />
-          <span className="font-mono text-sm font-medium uppercase tracking-[0.2em]">
+          <Compass size={18} className="text-accent-dark" />
+          <span className="font-mono text-sm font-semibold uppercase tracking-[0.2em]">
             Wanderlore
           </span>
         </Link>
-        <Link href="/" className="btn-ghost !py-2 text-sm">
+        <Link href="/" className="btn-ghost text-sm">
           Plan your own <ArrowRight size={15} />
         </Link>
       </div>
 
       {itinerary ? (
-        <ItineraryView
-          itinerary={itinerary}
-          shareId={params.id}
-          emailEnabled={isEmailEnabled()}
-        />
+        <ItineraryView itinerary={itinerary} shareId={id} />
       ) : (
-        <div className="card p-10 text-center">
-          <h1 className="text-2xl font-semibold tracking-tightest text-ink">
+        <div className="frame p-10 text-center">
+          <h1 className="display text-5xl text-ink">
             Trip not found
           </h1>
           <p className="mt-2 text-muted">

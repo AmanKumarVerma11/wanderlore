@@ -1,0 +1,500 @@
+{
+  "case": {
+    "id": "lisbon-3-relaxed",
+    "tags": [
+      "core"
+    ],
+    "request": {
+      "destination": "Lisbon",
+      "interests": [
+        "Architecture",
+        "Festivals & music"
+      ],
+      "days": 3,
+      "pace": "relaxed"
+    }
+  },
+  "pipeline": "legacy orchestrator + enrich (lib/ at 97bd336)",
+  "ms": 27996,
+  "outcome": "ok",
+  "calls": [
+    {
+      "host": "integrate.api.nvidia.com",
+      "label": "mistralai/mistral-large-3-675b-instruct-2512",
+      "start": 0,
+      "ms": 100,
+      "status": 410
+    },
+    {
+      "host": "integrate.api.nvidia.com",
+      "label": "openai/gpt-oss-120b",
+      "start": 1,
+      "ms": 93,
+      "status": 410
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.5-flash-lite:generateContent",
+      "start": 100,
+      "ms": 10226,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Castelo de São Jorge, Lisbon, Portugal",
+      "start": 10328,
+      "ms": 790,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Miradouro de Santa Luzia, Lisbon, Portugal",
+      "start": 11429,
+      "ms": 13,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Fado in Chiado, Lisbon, Portugal",
+      "start": 12530,
+      "ms": 632,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Jerónimos Monastery, Lisbon, Portugal",
+      "start": 13632,
+      "ms": 12,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Pastéis de Belém, Lisbon, Portugal",
+      "start": 14734,
+      "ms": 9,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Torre de Belém, Lisbon, Portugal",
+      "start": 15834,
+      "ms": 730,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "National Tile Museum, Lisbon, Portugal",
+      "start": 16935,
+      "ms": 10,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Praça do Comércio, Lisbon, Portugal",
+      "start": 18034,
+      "ms": 258,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Livraria Simões, Lisbon, Portugal",
+      "start": 19136,
+      "ms": 10,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Livraria Simões, Lisbon",
+      "start": 20236,
+      "ms": 11,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Livraria Simões Lisbon",
+      "start": 21337,
+      "ms": 10,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Livraria Simões",
+      "start": 22438,
+      "ms": 12,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Fronteira Palace, Lisbon, Portugal",
+      "start": 23539,
+      "ms": 527,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Miradouro de Santa Catarina, Lisbon, Portugal",
+      "start": 24640,
+      "ms": 628,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Feira da Ladra, Lisbon, Portugal",
+      "start": 25741,
+      "ms": 627,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Cemitério dos Prazeres, Lisbon, Portugal",
+      "start": 26843,
+      "ms": 232,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Lisbon",
+      "start": 27076,
+      "ms": 301,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Castelo_de_S%C3%A3o_Jorge",
+      "start": 27078,
+      "ms": 483,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Fado_in_Chiado",
+      "start": 27078,
+      "ms": 907,
+      "status": 404
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Jer%C3%B3nimos_Monastery",
+      "start": 27079,
+      "ms": 264,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Lisbon, Portugal",
+      "start": 27985,
+      "ms": 11,
+      "status": 200
+    }
+  ],
+  "itinerary": {
+    "input": {
+      "destination": "Lisbon",
+      "interests": [
+        "Architecture",
+        "Festivals & music"
+      ],
+      "days": 3,
+      "pace": "relaxed"
+    },
+    "destinationFull": "Lisbon, Portugal",
+    "story": "Lisbon unfurls across seven rolling hills where the golden light of the Atlantic cascades over pastel-colored façades, tiled in glittering azulejos that whisper centuries of maritime ambition. This is a city forged by the sea, where ancient Moorish alleyways twist steeply toward the Tagus River, echoing with the haunting, soul-stirring strains of Fado music drifting from candlelit taverns. Every cobblestone street tells a story of explorers who once set sail for unknown worlds, leaving behind a resilient, melancholic, yet fiercely proud cultural identity.\n\nToday, Lisbon dances to a rhythm that bridges its storied past with a vibrant, modern creative pulse. Laundry flutters from wrought-iron balconies like colorful flags of everyday life, while the unmistakable scent of grilled sardines mingles with the salty sea breeze. It is an urban tapestry where neighborhood bakeries serve warm pastel de nata alongside contemporary art galleries, inviting wanderers to slow down and lose themselves in the timeless charm of its sun-drenched plazas.",
+    "heritageSummary": "Lisbon's heritage is deeply rooted in its maritime discoveries, Manueline architecture, and the poignant musical tradition of Fado, recognized as UNESCO Intangible Cultural Heritage. The city boasts iconic landmarks like the Jerónimos Monastery and Belém Tower, celebrating the Age of Discovery through intricate stone carvings of nautical motifs. Traditional crafts like hand-painted azulejo tiles and artisanal cork products endure alongside a culinary scene that exalts the bounty of the Atlantic.",
+    "center": {
+      "lat": 38.7077507,
+      "lng": -9.1365919
+    },
+    "days": [
+      {
+        "day": 1,
+        "theme": "The Architectural Soul and Melancholic Fado of Alfama",
+        "items": [
+          {
+            "name": "Castelo de São Jorge",
+            "type": "attraction",
+            "blurb": "An ancient Moorish castle perched high above the city, offering panoramic views of Lisbon's terracotta rooftops and the sweeping Tagus River.",
+            "significance": "Stands as a testament to the city's complex layers of Roman, Visigoth, and Moorish history.",
+            "bestTime": "Late afternoon before sunset",
+            "geoQuery": "Castelo de São Jorge, Lisbon, Portugal",
+            "lat": 38.7139258,
+            "lng": -9.133483,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/way/1382432568"
+          },
+          {
+            "name": "Miradouro de Santa Luzia",
+            "type": "gem",
+            "blurb": "A romantic hilltop viewpoint framed by bougainvillea-draped pergolas and stunning blue-and-white tile panels depicting historical scenes.",
+            "significance": "Provides a peaceful vantage point showcasing traditional Portuguese azulejo integration into urban architecture.",
+            "bestTime": "Early morning for quiet reflection",
+            "geoQuery": "Miradouro de Santa Luzia, Lisbon, Portugal",
+            "lat": 38.7117413,
+            "lng": -9.130216,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/node/5446794770"
+          },
+          {
+            "name": "Fado in Chiado",
+            "type": "attraction",
+            "blurb": "An intimate live performance venue dedicated to the soul-stirring melodies of traditional Portuguese Fado music.",
+            "significance": "Celebrates Lisbon's quintessential musical expression of 'saudade'—a deep longing and melancholy.",
+            "bestTime": "Evening",
+            "geoQuery": "Fado in Chiado, Lisbon, Portugal",
+            "lat": 38.7114272,
+            "lng": -9.1427914,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/node/12390484308"
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "theme": "Manueline Masterpieces and Maritime Heritage of Belém",
+        "items": [
+          {
+            "name": "Jerónimos Monastery",
+            "type": "attraction",
+            "blurb": "A breathtaking masterpiece of Manueline architecture featuring elaborate maritime-themed stone carvings and soaring vaulted ceilings.",
+            "significance": "A UNESCO World Heritage site built to commemorate Vasco da Gama's successful voyage to India.",
+            "bestTime": "Morning right at opening",
+            "geoQuery": "Jerónimos Monastery, Lisbon, Portugal",
+            "lat": 38.6977531,
+            "lng": -9.2055912,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/relation/3258300"
+          },
+          {
+            "name": "Pastéis de Belém",
+            "type": "gem",
+            "blurb": "The legendary historic bakery that has been secret-recipe crafting the original custard tarts since 1837.",
+            "significance": "The birthplace of Portugal's most famous culinary export, baked fresh with traditional flaky pastry and custard.",
+            "bestTime": "Mid-afternoon",
+            "geoQuery": "Pastéis de Belém, Lisbon, Portugal",
+            "lat": 38.6974795,
+            "lng": -9.2033202,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/node/398922337"
+          },
+          {
+            "name": "Torre de Belém",
+            "type": "attraction",
+            "blurb": "An iconic 16th-century fortification standing gracefully on the riverbank, adorned with delicate stone ropework and Gothic balconies.",
+            "significance": "Symbolizes the height of the Portuguese Age of Discovery and acts as the ceremonial gateway to Lisbon.",
+            "bestTime": "Late afternoon sunset glow",
+            "geoQuery": "Torre de Belém, Lisbon, Portugal",
+            "lat": 38.691586,
+            "lng": -9.2159288,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/way/24341353"
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "theme": "Azulejos, Grand Plazas, and Modern Cultural Vibrancy",
+        "items": [
+          {
+            "name": "National Tile Museum",
+            "type": "attraction",
+            "blurb": "Housed in the stunning former Madre de Deus Convent, displaying a vast collection of ceramic tiles from the 15th century to the present.",
+            "significance": "Preserves the unique Portuguese art of azulejo tile-making, reflecting influences from Moorish, Spanish, and Flemish cultures.",
+            "bestTime": "Morning",
+            "geoQuery": "National Tile Museum, Lisbon, Portugal",
+            "lat": 38.7247242,
+            "lng": -9.113914,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/way/1451054092"
+          },
+          {
+            "name": "Praça do Comércio",
+            "type": "attraction",
+            "blurb": "Lisbon's majestic riverside plaza, framed by grand yellow Pombaline buildings and opening directly onto the broad Tagus estuary.",
+            "significance": "Historically the grand entrance to Lisbon for royalty and dignitaries arriving by sea.",
+            "bestTime": "Sunset",
+            "geoQuery": "Praça do Comércio, Lisbon, Portugal",
+            "lat": 38.7077934,
+            "lng": -9.1365543,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/relation/9218842"
+          },
+          {
+            "name": "Livraria Simões",
+            "type": "gem",
+            "blurb": "A charming, diminutive independent bookstore tucked away in the city streets filled with vintage literature and local poetry.",
+            "significance": "Highlights Lisbon's deep-rooted literary culture and independent neighborhood shop preservation.",
+            "bestTime": "Afternoon",
+            "geoQuery": "Livraria Simões, Lisbon, Portugal",
+            "lat": -11.5949029,
+            "lng": -39.1731182,
+            "verified": true,
+            "osmUrl": "https://www.openstreetmap.org/node/2079074658"
+          }
+        ]
+      }
+    ],
+    "localSecrets": [
+      {
+        "name": "Fronteira Palace",
+        "type": "gem",
+        "blurb": "A 17th-century palace boasting some of the most exquisite, intact gardens and tile panels in Lisbon, largely untouched by mass tourism.",
+        "significance": "An incredible surviving example of Portuguese baroque architecture and mythological azulejo storytelling.",
+        "bestTime": "Morning",
+        "geoQuery": "Fronteira Palace, Lisbon, Portugal",
+        "lat": 38.7399505,
+        "lng": -9.1802893,
+        "verified": true,
+        "osmUrl": "https://www.openstreetmap.org/way/145116280"
+      },
+      {
+        "name": "Miradouro de Santa Catarina",
+        "type": "gem",
+        "blurb": "A bohemian terrace overlooking the port of Lisbon featuring a whimsical statue of Adamastor from Portuguese epic poetry.",
+        "significance": "A beloved local gathering spot for musicians and artists to watch the sunset over the suspension bridge.",
+        "bestTime": "Late afternoon",
+        "geoQuery": "Miradouro de Santa Catarina, Lisbon, Portugal",
+        "lat": 38.7094502,
+        "lng": -9.1477237,
+        "verified": true,
+        "osmUrl": "https://www.openstreetmap.org/node/11265825736"
+      },
+      {
+        "name": "Feira da Ladra",
+        "type": "gem",
+        "blurb": "Lisbon's oldest flea market, operating since the 13th century, where locals sell antiques, vintage books, and eclectic treasures.",
+        "significance": "A living museum of everyday Lisbon history and a treasure hunt for authentic local artifacts.",
+        "bestTime": "Tuesday or Saturday morning",
+        "geoQuery": "Feira da Ladra, Lisbon, Portugal",
+        "lat": 38.7153925,
+        "lng": -9.1259289,
+        "verified": true,
+        "osmUrl": "https://www.openstreetmap.org/node/3827472183"
+      },
+      {
+        "name": "Cemitério dos Prazeres",
+        "type": "gem",
+        "blurb": "A monumental historic cemetery in Prazeres featuring ornate above-ground family mausoleums and stunning views over the river.",
+        "significance": "An architectural marvel of funerary art and a remarkably peaceful, reflective green space.",
+        "bestTime": "Morning",
+        "geoQuery": "Cemitério dos Prazeres, Lisbon, Portugal",
+        "lat": 38.7133663,
+        "lng": -9.1714221,
+        "verified": true,
+        "osmUrl": "https://www.openstreetmap.org/relation/9345270"
+      }
+    ],
+    "events": [
+      {
+        "name": "Festas de Lisboa (Festivals of St. Anthony)",
+        "whenTypical": "June, annually",
+        "description": "The city's biggest cultural festival where historic neighborhoods transform with colorful street decorations, music, dancing, and the aroma of grilled sardines.",
+        "culturalRoot": "Honors Saint Anthony, Lisbon's patron saint, through ancient community street celebrations."
+      },
+      {
+        "name": "Fête de la Musique Lisbon",
+        "whenTypical": "Mid-June, annually",
+        "description": "A vibrant celebration of diverse musical genres with free concerts spilling out onto public squares and historic venues across the city.",
+        "culturalRoot": "Promotes musical inclusivity and community engagement in urban public spaces."
+      },
+      {
+        "name": "Doclisboa",
+        "whenTypical": "October, annually",
+        "description": "An internationally acclaimed documentary film festival showcasing innovative and socially engaged cinema from around the globe.",
+        "culturalRoot": "Celebrates Portugal's rich cinematic tradition and independent storytelling."
+      }
+    ],
+    "experiences": [
+      {
+        "title": "Traditional Azulejo Painting Workshop",
+        "description": "Learn the centuries-old technique of hand-painting ceramic tiles using traditional pigments and glazes.",
+        "howToEngage": "Book a session at a local heritage studio like the National Tile Museum or independent ceramic ateliers.",
+        "respectfulTip": "Listen carefully to the master artisans and respect the delicate nature of the historical glazing process."
+      },
+      {
+        "title": "Authentic Fado Evening in Alfama",
+        "description": "Experience an intimate dinner accompanied by live acoustic guitar and passionate Fado singers in a neighborhood tasca.",
+        "howToEngage": "Reserve a table at a small, family-run restaurant in Alfama or Mouraria well in advance.",
+        "respectfulTip": "Remain completely silent and refrain from talking or taking flash photos while the music is being performed."
+      },
+      {
+        "title": "Portuguese Culinary and Wine Tasting",
+        "description": "Discover the regional depth of Portuguese cuisine and fortified wines with a local food historian.",
+        "howToEngage": "Join a small-group walking tour focused on traditional family-owned neighborhood eateries.",
+        "respectfulTip": "Embrace trying unfamiliar local ingredients with curiosity and respect for their cultural origins."
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "Olá",
+        "meaning": "Hello"
+      },
+      {
+        "phrase": "Por favor",
+        "meaning": "Please"
+      },
+      {
+        "phrase": "Obrigado / Obrigada",
+        "meaning": "Thank you (male/female speaker)"
+      },
+      {
+        "phrase": "Com licença",
+        "meaning": "Excuse me"
+      },
+      {
+        "phrase": "Saúde",
+        "meaning": "Cheers / To your health"
+      }
+    ],
+    "etiquette": [
+      "Always greet shopkeepers and servers with a polite 'Bom dia' (Good morning) or 'Boa tarde' (Good afternoon) when entering an establishment.",
+      "Tipping is not obligatory, but leaving around 5 to 10 percent in restaurants for exceptional service is warmly appreciated.",
+      "Respect the solemn atmosphere during live Fado performances by maintaining absolute silence while the artists are singing.",
+      "Dress modestly and respectfully when visiting churches, monasteries, and historical sacred sites.",
+      "Be mindful of local residents when walking through quiet historic neighborhoods like Alfama, keeping noise levels moderate late at night."
+    ],
+    "hero": {
+      "title": "Lisbon",
+      "extract": "Lisbon is the capital and most populous city of Portugal, with an estimated population of 658,236 as of 2025, within its administrative limits and 3,353,000 within the metropolis, as of 2025. The city lies on the Atlantic Ocean in the western part of the Iberian Peninsula, fronting the northern shore of the River Tagus. The western portion of its metro area, the Portuguese Riviera, hosts the westernmost point of Continental Europe, culminating at Cabo da Roca.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Lisboa_-_Portugal_%2852597836992%29.jpg/330px-Lisboa_-_Portugal_%2852597836992%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "url": "https://en.wikipedia.org/wiki/Lisbon"
+    },
+    "sources": [
+      {
+        "title": "São Jorge Castle",
+        "extract": "São Jorge Castle, sometimes known in English as Saint George's Castle, is a historic castle in the Portuguese capital of Lisbon, located in the freguesia of Santa Maria Maior. Human occupation of the castle hill dates to at least the 8th century BC while the oldest fortifications on the site date from the 2nd century BC. The hill on which Saint George's Castle stands has played an important part in the history of Lisbon, having served as the location of fortifications occupied successively by Phoenicians, Carthaginians, Romans, and Moors, before its conquest by the Portuguese in the 1147 Siege of Lisbon. Since the 12th century, the castle has variously served as a royal palace, a military barracks, home of the Torre do Tombo National Archive, and now as a national monument and museum.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/LisbonCastle.jpg/330px-LisbonCastle.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/S%C3%A3o_Jorge_Castle"
+      },
+      {
+        "title": "Jerónimos Monastery",
+        "extract": "The Jerónimos Monastery or Hieronymites Monastery is a former monastery of the Order of Saint Jerome near the Tagus river in the parish of Belém, in the Lisbon Municipality, Portugal. It became the necropolis of the Portuguese royal dynasty of Aviz in the 16th century but was secularized on 28 December 1833 by state decree and its ownership transferred to the charitable institution, Real Casa Pia de Lisboa.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Jer%C3%B3nimos_April_2009-4.jpg/330px-Jer%C3%B3nimos_April_2009-4.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Jer%C3%B3nimos_Monastery"
+      }
+    ],
+    "generatedAt": "2026-10-02T22:17:21.641Z"
+  },
+  "meta": {
+    "mode": "single",
+    "synthesizer": "gemini",
+    "panel": [
+      {
+        "model": "mistralai/mistral-large-3-675b-instruct-2512",
+        "ok": false,
+        "ms": 100
+      },
+      {
+        "model": "openai/gpt-oss-120b",
+        "ok": false,
+        "ms": 93
+      }
+    ],
+    "panelistsUsed": 0,
+    "degraded": true
+  },
+  "refBox": [
+    38.6913994,
+    38.7967584,
+    -9.2298356,
+    -9.0863328
+  ]
+}

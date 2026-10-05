@@ -12,30 +12,92 @@
   ::selection {
     @apply bg-accent/20;
   }
+  /* No single word alone on a paragraph's last line (ignored where unsupported). */
+  p {
+    text-wrap: pretty;
+  }
+  /* The darker red is 6.1:1 on paper, so the ring is visible on every surface. */
   :focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-accent;
+    @apply outline outline-[3px] outline-offset-[3px] outline-accent-dark;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
 @layer components {
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[1000] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper;
+  }
   .card {
     @apply rounded-xl border border-line bg-surface;
   }
-  /* micro uppercase label in mono — the one recurring "system" flourish */
+  /* The poster frame: a hard ink border and an offset shadow. */
+  .frame {
+    @apply rounded-2xl border-2 border-ink bg-surface shadow-offset;
+  }
+  /* Headlines in the display serif. */
+  .display {
+    @apply font-display font-normal leading-[0.92] tracking-[-0.015em];
+  }
+  /* Micro uppercase label in mono: the recurring "system" voice. */
   .label {
     @apply font-mono text-[0.7rem] font-medium uppercase tracking-[0.14em] text-muted;
   }
+  /* A rubber stamp: a tilted, bordered mono label. */
+  .stamp {
+    @apply inline-flex -rotate-3 items-center rounded-md border-2 px-2 py-0.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em];
+  }
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 py-1 text-sm text-ink-soft;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-white transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-accent-dark px-5 py-3 font-semibold text-white shadow-offset-sm transition hover:-translate-y-px hover:bg-ink disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-accent-dark;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-surface px-4 py-2 font-medium text-ink transition-colors hover:border-ink hover:text-ink disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2 border-ink bg-surface px-4 py-2 font-medium text-ink transition-colors hover:bg-ink hover:text-paper disabled:opacity-60;
   }
   .link-underline {
-    @apply underline decoration-line underline-offset-4 transition-colors hover:decoration-accent hover:text-accent;
+    @apply underline decoration-line underline-offset-4 transition-colors hover:text-accent-dark hover:decoration-accent-dark;
+  }
+  /* Outlined numerals, decorative only (always aria-hidden). */
+  .numeral {
+    @apply select-none font-display leading-[0.8] text-transparent;
+    -webkit-text-stroke: 1.5px oklch(0.2 0 0);
+  }
+  .numeral-light {
+    -webkit-text-stroke-color: oklch(0.985 0 0);
+  }
+  .dot-grid {
+    background-image: radial-gradient(oklch(0.2 0 0 / 0.16) 1.2px, transparent 1.6px);
+    background-size: 16px 16px;
+  }
+  .hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      oklch(0.585 0.222 26 / 0.12) 0 2px,
+      transparent 2px 10px
+    );
+  }
+  /* A slow, decorative ticker; reduced motion stops it. */
+  .ticker-track {
+    @apply flex w-max;
+    animation: ticker 60s linear infinite;
+  }
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -53,7 +115,8 @@
   .no-print {
     display: none !important;
   }
-  .card {
+  .card,
+  .frame {
     border-color: #e5e5e5 !important;
     box-shadow: none !important;
     break-inside: avoid;

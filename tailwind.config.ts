@@ -2,9 +2,12 @@ import type { Config } from "tailwindcss";
 
 /*
  * Monochrome editorial system: a near-white paper, near-black ink, a scale of
- * warm-neutral grays, and a single restrained red used only for emphasis and
- * interactive accents. No decorative color — hierarchy comes from type, space,
- * and hairline rules. Inspired by amankrverma.in (minimal B&W, one highlight).
+ * warm-neutral grays, and a single red. The look is maximalist editorial (a big
+ * display serif, oversized numerals, poster frames with offset shadows, stamps)
+ * held together by one grid and these few colours.
+ *
+ * Contrast on paper (WCAG): ink 17.3, ink-soft 11.3, muted 5.1, accent-dark 6.1,
+ * accent 4.5 (large text and graphics only), faint 2.4 (never for text).
  */
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
@@ -28,12 +31,17 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "Georgia", "serif"],
       },
       letterSpacing: {
         tightest: "-0.03em",
       },
       boxShadow: {
         soft: "0 1px 2px oklch(0 0 0 / 0.04), 0 12px 32px oklch(0 0 0 / 0.05)",
+        // Poster frames: a hard shadow, offset down and right.
+        offset: "6px 6px 0 0 oklch(0.2 0 0)",
+        "offset-sm": "3px 3px 0 0 oklch(0.2 0 0)",
+        "offset-accent": "6px 6px 0 0 oklch(0.51 0.2 26)",
       },
       maxWidth: {
         prose: "42rem",

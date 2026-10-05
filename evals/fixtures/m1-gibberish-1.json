@@ -1,0 +1,32 @@
+{
+  "case": {
+    "id": "gibberish-1",
+    "tags": [
+      "invalid"
+    ],
+    "request": {
+      "destination": "Qwxzt Vrrnplk",
+      "interests": [
+        "Heritage & history"
+      ],
+      "days": 2,
+      "pace": "balanced"
+    },
+    "expect": "reject"
+  },
+  "pipeline": "plan.ts (milestone 1)",
+  "ms": 12,
+  "outcome": "error",
+  "calls": [
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Qwxzt Vrrnplk",
+      "start": 0,
+      "ms": 12,
+      "status": 200
+    }
+  ],
+  "error": "We couldn't find that destination on the map. Try a city, region or country name.",
+  "status": 422,
+  "refBox": null
+}

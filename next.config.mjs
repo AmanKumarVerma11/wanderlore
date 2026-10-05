@@ -1,3 +1,7 @@
+// React Refresh in `next dev` evaluates code with eval(), so dev needs
+// 'unsafe-eval' or the page never hydrates. Production keeps the strict policy.
+const isDev = process.env.NODE_ENV === "development";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -17,9 +21,11 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https://*.tile.openstreetmap.org https://upload.wikimedia.org",
+              // Wikipedia's summary API now serves thumbnails from thumb.wikimedia.org;
+              // upload.wikimedia.org stays for trips saved before that change.
+              "img-src 'self' data: https://tile.openstreetmap.org https://upload.wikimedia.org https://thumb.wikimedia.org",
               "font-src 'self'",
               "connect-src 'self'",
               "base-uri 'self'",

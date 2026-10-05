@@ -1,0 +1,670 @@
+{
+  "case": {
+    "id": "kyoto-3-balanced",
+    "tags": [
+      "core"
+    ],
+    "request": {
+      "destination": "Kyoto",
+      "interests": [
+        "Heritage & history",
+        "Food & markets"
+      ],
+      "days": 3,
+      "pace": "balanced"
+    }
+  },
+  "pipeline": "plan.ts (/Users/aman/Desktop/Code/Aman/wanderlore/lib)",
+  "ms": 26636,
+  "outcome": "ok",
+  "calls": [
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kyoto",
+      "start": 0,
+      "ms": 76,
+      "status": 200
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.5-flash-lite:generateContent",
+      "start": 78,
+      "ms": 10488,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Kyoto",
+      "start": 10569,
+      "ms": 267,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Kyoto_Imperial_Palace",
+      "start": 10570,
+      "ms": 354,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Nishiki_Market",
+      "start": 10570,
+      "ms": 263,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Kinkaku-ji",
+      "start": 10571,
+      "ms": 306,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kyoto Imperial Palace",
+      "start": 10571,
+      "ms": 50,
+      "status": 200
+    },
+    {
+      "host": "commons.wikimedia.org",
+      "label": "/w/api.php",
+      "start": 10837,
+      "ms": 546,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Nishiki Market",
+      "start": 11673,
+      "ms": 359,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Nashinoki Shrine",
+      "start": 12773,
+      "ms": 503,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kinkaku-ji",
+      "start": 13874,
+      "ms": 707,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Ryoan-ji",
+      "start": 14975,
+      "ms": 938,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Pontocho Alley",
+      "start": 16076,
+      "ms": 524,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kiyomizu-dera",
+      "start": 17176,
+      "ms": 490,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Sannenzaka and Ninenzaka",
+      "start": 18276,
+      "ms": 11,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kawai Shrine",
+      "start": 19377,
+      "ms": 12,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Shisen-do",
+      "start": 20477,
+      "ms": 492,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Senbon Torii at Otagi Nenbutsu-ji",
+      "start": 21578,
+      "ms": 322,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Daitoku-ji Temple Sub-temples",
+      "start": 22678,
+      "ms": 215,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Sannenzaka",
+      "start": 23780,
+      "ms": 11,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Otagi Nenbutsu-ji",
+      "start": 24882,
+      "ms": 219,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Daitoku-ji",
+      "start": 25983,
+      "ms": 650,
+      "status": 200
+    }
+  ],
+  "itinerary": {
+    "input": {
+      "destination": "Kyoto",
+      "interests": [
+        "Heritage & history",
+        "Food & markets"
+      ],
+      "days": 3,
+      "pace": "balanced"
+    },
+    "destinationFull": "Kyoto, Japan",
+    "story": "Kyoto breathes through the rhythmic rustling of Arashiyama's bamboo groves and the quiet scrape of a broom sweeping morning mist off weathered temple stone. For over a millennium, this ancient capital served as the heart of Japanese imperial power, refinement, and spiritual devotion, leaving behind a city carved by centuries of meticulous craftsmanship. From the wooden eaves of Kiyomizu-dera clinging to the hillside to the hidden moss gardens of Zen retreats tucked behind unassuming walls, Kyoto whispers tales of emperors, samurai, and geiko who shaped the aesthetic soul of an entire nation.\n\nBeneath its historic surface lies a vibrant daily culture rooted in neighborhood markets and family-run workshops that have passed secrets down through generations. The scent of dashi broth and roasted green tea drifts through narrow alleys, inviting travelers to step away from the modern world and into an enduring rhythm of living heritage. Here, every season is felt deeply—whether it is the pink canopy of spring cherry blossoms or the fiery maples of autumn lighting up temple courtyards in silent, glowing reverence.",
+    "heritageSummary": "Kyoto's heritage is defined by its seventeen UNESCO World Heritage sites, master woodworking traditions, exquisite Kaiseki cuisine, and the refined arts of tea ceremony and flower arrangement. These traditions matter because they preserve a living continuum of Japanese philosophy, where imperfections are embraced, nature is revered, and every detail of daily life is elevated to an art form.",
+    "center": {
+      "lat": 35.0115754,
+      "lng": 135.7681441
+    },
+    "days": [
+      {
+        "day": 1,
+        "theme": "Imperial Roots and Ancient Market Flavors",
+        "items": [
+          {
+            "name": "Kyoto Imperial Palace",
+            "type": "attraction",
+            "blurb": "The majestic former residence of Japan's Imperial Family, set within the sprawling, gravel-paved pathways of Kyoto Gyoen National Garden.",
+            "significance": "Represents the pinnacle of traditional Japanese classical architecture and centuries of political history.",
+            "bestTime": "Morning",
+            "geoQuery": "Kyoto Imperial Palace, Kyoto, Japan",
+            "lat": 35.0252635,
+            "lng": 135.7623445,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/554879249"
+          },
+          {
+            "name": "Nishiki Market",
+            "type": "attraction",
+            "blurb": "A narrow five-block shopping street known as 'Kyoto's Kitchen', packed with over a hundred lively stalls selling local delicacies and cookware.",
+            "significance": "The ultimate destination to taste historic local street food, seasonal pickles, and specialized Kyoto ingredients.",
+            "bestTime": "Late Morning",
+            "geoQuery": "Nishiki Market, Kyoto, Japan",
+            "lat": 35.0050244,
+            "lng": 135.7655699,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/772134672"
+          },
+          {
+            "name": "Nashinoki Shrine",
+            "type": "gem",
+            "blurb": "A serene neighborhood shrine famous for its living spring water, known as one of the three best waters in Kyoto.",
+            "significance": "Offers a tranquil escape where locals come to draw pure spring water and appreciate the quiet courtyard.",
+            "bestTime": "Afternoon",
+            "geoQuery": "Nashinoki Shrine, Kyoto, Japan",
+            "lat": 35.0233846,
+            "lng": 135.7672754,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/11971971028"
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "theme": "Zen Sanctuaries and Historic Geisha Alleys",
+        "items": [
+          {
+            "name": "Kinkaku-ji",
+            "type": "attraction",
+            "blurb": "The iconic Golden Pavilion, a Zen temple whose top two floors are completely covered in brilliant gold leaf, overlooking a mirroring pond.",
+            "significance": "A masterpiece of Muromachi period garden and architectural design that symbolizes the Buddhist paradise on earth.",
+            "bestTime": "Early Morning",
+            "geoQuery": "Kinkaku-ji, Kyoto, Japan",
+            "lat": 35.0395293,
+            "lng": 135.7295373,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/98115917"
+          },
+          {
+            "name": "Ryoan-ji",
+            "type": "attraction",
+            "blurb": "Home to Japan's most famous dry landscape rock garden, featuring fifteen carefully arranged rocks surrounded by raked white gravel.",
+            "significance": "A profound space for meditation that has inspired philosophers and artists for centuries.",
+            "bestTime": "Mid-Morning",
+            "geoQuery": "Ryoan-ji, Kyoto, Japan",
+            "lat": 35.033463,
+            "lng": 135.7180884,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/98103477"
+          },
+          {
+            "name": "Pontocho Alley",
+            "type": "gem",
+            "blurb": "A lantern-lit, narrow alleyway running parallel to the Kamogawa River, lined with traditional wooden machiya restaurants and tea houses.",
+            "significance": "Preserves the authentic atmosphere of historic Kyoto dining and evening entertainment.",
+            "bestTime": "Evening",
+            "geoQuery": "Pontocho Alley, Kyoto, Japan",
+            "lat": 35.0059797,
+            "lng": 135.7710884,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/542888416"
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "theme": "Eastern Hills Temples and Artisanal Crafts",
+        "items": [
+          {
+            "name": "Kiyomizu-dera",
+            "type": "attraction",
+            "blurb": "A historic mountaintop temple renowned for its massive wooden stage built entirely without nails, offering sweeping views over Kyoto.",
+            "significance": "A deeply revered pilgrimage site founded in the Nara period, symbolizing devotion and natural harmony.",
+            "bestTime": "Morning",
+            "geoQuery": "Kiyomizu-dera, Kyoto, Japan",
+            "lat": 34.994303,
+            "lng": 135.7844389,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/336641107"
+          },
+          {
+            "name": "Sannenzaka and Ninenzaka",
+            "type": "attraction",
+            "blurb": "Preserved pedestrian stone stairways flanked by traditional wooden merchant houses, pottery shops, and sweet vendors.",
+            "significance": "Transports visitors back to the atmosphere of old Kyoto preservation districts.",
+            "bestTime": "Late Morning",
+            "geoQuery": "Sannenzaka, Kyoto, Japan",
+            "lat": 34.9964787,
+            "lng": 135.7813178,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/337929224"
+          },
+          {
+            "name": "Kawai Shrine",
+            "type": "gem",
+            "blurb": "A sub-shrine of Shimogamo Shrine dedicated to female beauty, featuring ema votive tablets shaped like hand mirrors.",
+            "significance": "A peaceful sanctuary rooted in ancient Shinto traditions celebrating inner and outer grace.",
+            "bestTime": "Afternoon",
+            "geoQuery": "Kawai Shrine, Kyoto, Japan",
+            "lat": 35.0347053,
+            "lng": 135.7719364,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/351136449"
+          }
+        ]
+      }
+    ],
+    "localSecrets": [
+      {
+        "name": "Shisen-do",
+        "type": "gem",
+        "blurb": "A hillside temple retreat built by a 17th-century scholar, featuring a contemplative stroll garden and distinctive deer-scaring bamboo water clappers.",
+        "significance": "An exquisite literary hideaway far removed from the tourist crowds.",
+        "bestTime": "Early Afternoon",
+        "geoQuery": "Shisen-do, Kyoto, Japan",
+        "lat": 35.0437304,
+        "lng": 135.7961935,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/way/503289189"
+      },
+      {
+        "name": "Senbon Torii at Otagi Nenbutsu-ji",
+        "type": "gem",
+        "blurb": "A mountain temple in Saga-Arashiyama populated by over twelve hundred moss-covered stone arhat statues, each carved with a unique humorous expression by ordinary citizens.",
+        "significance": "Demonstrates the folk-art warmth and playful devotion of local Japanese spiritual life.",
+        "bestTime": "Morning",
+        "geoQuery": "Otagi Nenbutsu-ji, Kyoto, Japan",
+        "lat": 35.0311595,
+        "lng": 135.6612344,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/way/1230442951"
+      },
+      {
+        "name": "Daitoku-ji Temple Sub-temples",
+        "type": "gem",
+        "blurb": "A vast walled Zen temple complex containing dozens of hidden sub-temples with sublime sub-gardens that most tour buses overlook.",
+        "significance": "The historical heart of Japanese tea culture and Rinzai Zen Buddhism.",
+        "bestTime": "Morning",
+        "geoQuery": "Daitoku-ji, Kyoto, Japan",
+        "lat": 35.0427917,
+        "lng": 135.7465517,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/way/969457939"
+      }
+    ],
+    "events": [
+      {
+        "name": "Gion Matsuri",
+        "whenTypical": "July, annually",
+        "description": "One of Japan's most famous festivals featuring massive, ornate float processions, street food, and historic neighborhood celebrations.",
+        "culturalRoot": "Originates from 9th-century purification rituals intended to appease plague-causing deities."
+      },
+      {
+        "name": "Daimonji Gozan送り火",
+        "whenTypical": "August 16th, annually",
+        "description": "Enormous bonfires are lit in giant kanji characters and shapes along the mountains surrounding Kyoto to bid farewell to ancestral spirits.",
+        "culturalRoot": "An integral part of the Obon Buddhist festival honoring the return of ancestral spirits."
+      },
+      {
+        "name": "Jidai Matsuri",
+        "whenTypical": "October, annually",
+        "description": "A grand festival of the ages featuring a costume parade where thousands of participants dress in authentic historical attire spanning over a thousand years.",
+        "culturalRoot": "Commemorates the founding of Kyoto as Japan's imperial capital."
+      }
+    ],
+    "experiences": [
+      {
+        "title": "Traditional Matcha Green Tea Ceremony",
+        "description": "Participate in a serene preparation and sharing of powdered green tea guided by a certified tea master in a historic tearoom.",
+        "howToEngage": "Book a small-group session at a traditional machiya tea house in advance.",
+        "respectfulTip": "Remove your shoes at the entrance, avoid wearing strong perfumes, and bow when receiving your tea bowl."
+      },
+      {
+        "title": "Kyo-Yuzen Textile Dyeing Workshop",
+        "description": "Learn the ancient stenciling and hand-dyeing techniques used to create Kyoto's legendary silk kimono fabrics.",
+        "howToEngage": "Reserve a hands-on introductory stencil dye workshop at local craft centers.",
+        "respectfulTip": "Listen closely to the artisan's instructions and treat the traditional tools with utmost care."
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "おおきに",
+        "meaning": "Thank you (Kyoto dialect)",
+        "lang": "ja-JP",
+        "pronunciation": "oh-KEE-nee"
+      },
+      {
+        "phrase": "こんにちは",
+        "meaning": "Hello / Good afternoon",
+        "lang": "ja-JP",
+        "pronunciation": "kohn-nee-CHEE-wah"
+      },
+      {
+        "phrase": "すみません",
+        "meaning": "Excuse me / Sorry",
+        "lang": "ja-JP",
+        "pronunciation": "soo-mee-mah-SEN"
+      },
+      {
+        "phrase": "おいしい",
+        "meaning": "Delicious",
+        "lang": "ja-JP",
+        "pronunciation": "oh-ee-SHEE-ee"
+      },
+      {
+        "phrase": "いくらですか",
+        "meaning": "How much is this?",
+        "lang": "ja-JP",
+        "pronunciation": "ee-koo-rah-DEHS-kah"
+      }
+    ],
+    "etiquette": [
+      "Always remove your shoes when entering temples, traditional inns, and homes, swapping them for provided slippers.",
+      "Do not walk and eat; consume street food near the stall where you purchased it.",
+      "Refrain from taking photographs of geiko and maiko without explicit permission in the Gion district.",
+      "Never stick your chopsticks vertically upright into a bowl of rice, as this resembles a funeral rite.",
+      "Keep conversations quiet on public transportation and set your phone to silent mode."
+    ],
+    "hero": {
+      "title": "Kyoto",
+      "extract": "Kyoto, officially Kyoto City , is the capital city of Kyoto Prefecture in the Kansai region of Japan's largest and most populous island of Honshu. As of 2020, the city had a population of 1.46 million, making it the ninth-most populous city in Japan. More than half (56.8%) of Kyoto Prefecture's population resides in the city. The city is the cultural anchor of the substantially larger Greater Kyoto, a metropolitan statistical area home to approximately 3.8 million people. It is also part of the even larger Keihanshin metropolitan area, along with Osaka and Kobe.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Kyoto%2C_Japan_%2849667780482%29.jpg/330px-Kyoto%2C_Japan_%2849667780482%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "url": "https://en.wikipedia.org/wiki/Kyoto",
+      "imageCredit": {
+        "artist": "Nina R from Africa",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "fileUrl": "https://commons.wikimedia.org/wiki/File:Kyoto%2C_Japan_(49667780482).jpg"
+      }
+    },
+    "sources": [
+      {
+        "title": "Kyoto Imperial Palace",
+        "extract": "The Kyōto Imperial Palace , also known as Dairi (内裏) or Kinri (禁裏), is the former palace of the Emperor of Japan from 1331 to 1869 located in Kamigyō-ku, Kyoto, Japan. Since the Meiji Restoration in 1869, the Emperors have resided at the Tokyo Imperial Palace, while the preservation of the Kyoto Imperial Palace was ordered in 1877. Today, the grounds are open to the public, and the Imperial Household Agency hosts public tours of the buildings several times a day.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/%E7%BE%8E%E3%81%97%E3%81%8D%E4%BA%AC%E9%83%BD%E5%BE%A1%E6%89%80.jpg/330px-%E7%BE%8E%E3%81%97%E3%81%8D%E4%BA%AC%E9%83%BD%E5%BE%A1%E6%89%80.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Kyoto_Imperial_Palace"
+      },
+      {
+        "title": "Nishiki Market",
+        "extract": "Nishiki Market  is a marketplace in downtown Kyoto, located on the east end of Nishikikōji Street, one block north and parallel to Shijō Street  and west of Teramachi Street . Rich with history and tradition, the market is renowned as the place to obtain many of Kyoto's famous foods and goods.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Nishiki_Ichiba_by_matsuyuki.jpg/330px-Nishiki_Ichiba_by_matsuyuki.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Nishiki_Market"
+      },
+      {
+        "title": "Kinkaku-ji",
+        "extract": "Kinkaku-ji , officially named Rokuon-ji , is a Zen Buddhist temple in Kyoto, Japan and a tourist attraction. It is designated as a World Heritage Site, a National Special Historic Site, a National Special Landscape, and one of the 17 Historic Monuments of Ancient Kyoto. The temple is nicknamed after its reliquary (shariden), the Golden Pavilion , whose top two floors are coated in 0.5 μm gold leaf. The current pavilion was rebuilt in 1955 after being destroyed in an arson attack.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Golden_Pavilion_Kinkaku-ji_water_mirror_2024.jpg/330px-Golden_Pavilion_Kinkaku-ji_water_mirror_2024.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Kinkaku-ji"
+      }
+    ],
+    "generatedAt": "2026-10-03T18:27:43.627Z"
+  },
+  "meta": {
+    "mode": "single",
+    "synthesizer": "gemini",
+    "panel": [],
+    "panelistsUsed": 0,
+    "degraded": false,
+    "model": "gemini-3.5-flash-lite",
+    "attempts": [
+      {
+        "model": "gemini-3.5-flash-lite",
+        "status": 200,
+        "ms": 10490
+      }
+    ]
+  },
+  "dest": {
+    "lat": 35.0115754,
+    "lng": 135.7681441,
+    "bbox": [
+      34.874916,
+      35.3212207,
+      135.559006,
+      135.878442
+    ],
+    "countryCode": "jp",
+    "displayName": "京都市, 京都府, 日本"
+  },
+  "trace": {
+    "totalMs": 26636,
+    "spans": [
+      {
+        "name": "destination",
+        "start": 0,
+        "ms": 78,
+        "outcome": "found",
+        "detail": "Kyoto"
+      },
+      {
+        "name": "gemini",
+        "start": 78,
+        "ms": 10490,
+        "outcome": "200",
+        "detail": "gemini-3.5-flash-lite"
+      },
+      {
+        "name": "wikipedia",
+        "start": 10569,
+        "ms": 265,
+        "outcome": "found",
+        "detail": "Nishiki Market"
+      },
+      {
+        "name": "wikipedia",
+        "start": 10569,
+        "ms": 267,
+        "outcome": "found",
+        "detail": "Kyoto"
+      },
+      {
+        "name": "wikipedia",
+        "start": 10569,
+        "ms": 308,
+        "outcome": "found",
+        "detail": "Kinkaku-ji"
+      },
+      {
+        "name": "wikipedia",
+        "start": 10569,
+        "ms": 355,
+        "outcome": "found",
+        "detail": "Kyoto Imperial Palace"
+      },
+      {
+        "name": "lookup",
+        "start": 10571,
+        "ms": 51,
+        "outcome": "found",
+        "detail": "Kyoto Imperial Palace"
+      },
+      {
+        "name": "photo-credit",
+        "start": 10836,
+        "ms": 548,
+        "outcome": "found",
+        "detail": "Kyoto,_Japan_(49667780482).jpg"
+      },
+      {
+        "name": "lookup",
+        "start": 11673,
+        "ms": 360,
+        "outcome": "found",
+        "detail": "Nishiki Market"
+      },
+      {
+        "name": "lookup",
+        "start": 12772,
+        "ms": 505,
+        "outcome": "found",
+        "detail": "Nashinoki Shrine"
+      },
+      {
+        "name": "lookup",
+        "start": 13874,
+        "ms": 708,
+        "outcome": "found",
+        "detail": "Kinkaku-ji"
+      },
+      {
+        "name": "lookup",
+        "start": 14975,
+        "ms": 940,
+        "outcome": "found",
+        "detail": "Ryoan-ji"
+      },
+      {
+        "name": "lookup",
+        "start": 16076,
+        "ms": 524,
+        "outcome": "found",
+        "detail": "Pontocho Alley"
+      },
+      {
+        "name": "lookup",
+        "start": 17176,
+        "ms": 491,
+        "outcome": "found",
+        "detail": "Kiyomizu-dera"
+      },
+      {
+        "name": "lookup",
+        "start": 18276,
+        "ms": 12,
+        "outcome": "not found",
+        "detail": "Sannenzaka and Ninenzaka"
+      },
+      {
+        "name": "lookup",
+        "start": 19376,
+        "ms": 14,
+        "outcome": "found",
+        "detail": "Kawai Shrine"
+      },
+      {
+        "name": "lookup",
+        "start": 20476,
+        "ms": 494,
+        "outcome": "found",
+        "detail": "Shisen-do"
+      },
+      {
+        "name": "lookup",
+        "start": 21577,
+        "ms": 324,
+        "outcome": "not found",
+        "detail": "Senbon Torii at Otagi Nenbutsu-ji"
+      },
+      {
+        "name": "lookup",
+        "start": 22678,
+        "ms": 215,
+        "outcome": "not found",
+        "detail": "Daitoku-ji Temple Sub-temples"
+      },
+      {
+        "name": "lookup",
+        "start": 23780,
+        "ms": 12,
+        "outcome": "found",
+        "detail": "Sannenzaka"
+      },
+      {
+        "name": "lookup",
+        "start": 24882,
+        "ms": 221,
+        "outcome": "found",
+        "detail": "Otagi Nenbutsu-ji"
+      },
+      {
+        "name": "lookup",
+        "start": 25983,
+        "ms": 652,
+        "outcome": "found",
+        "detail": "Daitoku-ji"
+      }
+    ]
+  },
+  "refBox": [
+    34.874916,
+    35.3212207,
+    135.559006,
+    135.878442
+  ]
+}

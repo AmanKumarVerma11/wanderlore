@@ -4,7 +4,6 @@ import { ImageResponse } from "next/og";
 // + red theme. File-based convention: Next wires this into og:image / twitter:image.
 // Note: Satori (next/og) requires every element with >1 child to set display:flex,
 // so all inline text is split into spans inside flex rows.
-export const runtime = "edge";
 export const alt = "Wanderlore — AI cultural trip planner";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -81,7 +80,7 @@ export default function Image() {
             not just its sights.
           </span>
           <span style={{ fontSize: 29, color: "#6b6b6b", marginTop: 30 }}>
-            AI cultural trips / hidden gems / heritage / every place verified on a
+            AI cultural trips / hidden gems / heritage / every place checked on a
             real map
           </span>
         </div>

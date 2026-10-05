@@ -35,3 +35,6 @@ next-env.d.ts
 
 # Local-only phase-2 design brief (never push)
 agentorchprompt.md
+
+# Eval run records (reports worth keeping are copied to docs/evals/)
+/evals/runs/

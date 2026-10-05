@@ -1,0 +1,666 @@
+{
+  "case": {
+    "id": "istanbul-7-packed",
+    "tags": [
+      "core"
+    ],
+    "request": {
+      "destination": "Istanbul",
+      "interests": [
+        "Heritage & history",
+        "Architecture",
+        "Food & markets"
+      ],
+      "days": 7,
+      "pace": "packed"
+    }
+  },
+  "pipeline": "plan.ts (milestone 1)",
+  "ms": 34576,
+  "outcome": "ok",
+  "calls": [
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Istanbul",
+      "start": 1,
+      "ms": 10,
+      "status": 200
+    },
+    {
+      "host": "integrate.api.nvidia.com",
+      "label": "mistralai/mistral-large-3-675b-instruct-2512",
+      "start": 12,
+      "ms": 96,
+      "status": 410
+    },
+    {
+      "host": "integrate.api.nvidia.com",
+      "label": "openai/gpt-oss-120b",
+      "start": 12,
+      "ms": 96,
+      "status": 410
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.5-flash-lite:generateContent",
+      "start": 109,
+      "ms": 11017,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Istanbul",
+      "start": 11127,
+      "ms": 256,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Hagia_Sophia",
+      "start": 11128,
+      "ms": 259,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Topkapi_Palace",
+      "start": 11129,
+      "ms": 253,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Grand_Bazaar",
+      "start": 11129,
+      "ms": 500,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Hagia Sophia",
+      "start": 11130,
+      "ms": 233,
+      "status": 200
+    },
+    {
+      "host": "commons.wikimedia.org",
+      "label": "/w/api.php",
+      "start": 11383,
+      "ms": 492,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Basilica Cistern",
+      "start": 12231,
+      "ms": 233,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Topkapi Palace",
+      "start": 13331,
+      "ms": 630,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Suleymaniye Mosque Complex",
+      "start": 14432,
+      "ms": 358,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Grand Bazaar",
+      "start": 15533,
+      "ms": 361,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Rustem Pasha Mosque",
+      "start": 16635,
+      "ms": 933,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Galata Tower",
+      "start": 17735,
+      "ms": 523,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kilic Ali Pasha Complex",
+      "start": 18836,
+      "ms": 630,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Dolmabahce Palace",
+      "start": 19937,
+      "ms": 192,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Uskudar waterfront",
+      "start": 21039,
+      "ms": 279,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Spice Bazaar",
+      "start": 22140,
+      "ms": 620,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Kadikoy Market",
+      "start": 23241,
+      "ms": 506,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Yildiz Palace",
+      "start": 24340,
+      "ms": 935,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Chora Mosque",
+      "start": 25441,
+      "ms": 1235,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Tevfik Fikret Museum",
+      "start": 26676,
+      "ms": 934,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Fener and Balat colorful streets",
+      "start": 27777,
+      "ms": 273,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Buyuk Valide Han rooftop",
+      "start": 28878,
+      "ms": 933,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Suleymaniye Mosque",
+      "start": 29979,
+      "ms": 627,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Uskudar",
+      "start": 31080,
+      "ms": 233,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Aşiyan Museum",
+      "start": 32181,
+      "ms": 214,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Balat",
+      "start": 33282,
+      "ms": 215,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Buyuk Valide Han",
+      "start": 34382,
+      "ms": 193,
+      "status": 200
+    }
+  ],
+  "itinerary": {
+    "input": {
+      "destination": "Istanbul",
+      "interests": [
+        "Heritage & history",
+        "Architecture",
+        "Food & markets"
+      ],
+      "days": 7,
+      "pace": "packed"
+    },
+    "destinationFull": "Istanbul, Turkey",
+    "story": "Straddling Europe and Asia across the glittering Bosphorus Strait, Istanbul is a living mosaic where empires have left their indelible signatures. From the soaring minarets of the Ottoman sultans to the weathered stones of the Byzantine Empire, the city breathes history through its labyrinthine alleys and bustling bazaars. The call to prayer echoes across the water, blending with the clatter of copper beaters in ancient courtyards and the rich aroma of roasting coffee and cardamom. Here, East and West do not merely meet; they entwine, creating a sensory symphony that has captivated travelers for millennia.",
+    "heritageSummary": "Istanbul's heritage is defined by its status as the former capital of the Roman, Byzantine, and Ottoman Empires, featuring UNESCO World Heritage sites like the Historic Areas of Istanbul. Its vibrant traditions encompass intricate carpet weaving, the meditative art of Ebru paper marbling, and a culinary landscape that marries Mediterranean freshness with rich Middle Eastern and Balkan spices. This heritage matters because it represents a rare bridge of continuous cultural evolution across continents.",
+    "center": {
+      "lat": 41.006381,
+      "lng": 28.9758715
+    },
+    "days": [
+      {
+        "day": 1,
+        "theme": "Byzantine Majesty and Ancient Echoes",
+        "items": [
+          {
+            "name": "Hagia Sophia",
+            "type": "attraction",
+            "blurb": "An architectural marvel that has served as a cathedral and a mosque, showcasing breathtaking Byzantine domes and massive Islamic calligraphy.",
+            "significance": "Pivotal monument representing the zenith of Byzantine engineering and later Ottoman religious adaptation.",
+            "bestTime": "Early morning to avoid crowds",
+            "geoQuery": "Hagia Sophia, Istanbul, Turkey",
+            "lat": 41.0085046,
+            "lng": 28.9800112,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/109862851"
+          },
+          {
+            "name": "Basilica Cistern",
+            "type": "gem",
+            "blurb": "An underground subterranean palace supported by hundreds of ancient marble columns, including the mysterious Medusa head bases.",
+            "significance": "Marvel of ancient water filtration and storage infrastructure built in the 6th century.",
+            "bestTime": "Late afternoon",
+            "geoQuery": "Basilica Cistern, Istanbul, Turkey",
+            "lat": 41.0084795,
+            "lng": 28.9783826,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/11006008339"
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "theme": "Imperial Splendor of the Ottomans",
+        "items": [
+          {
+            "name": "Topkapi Palace",
+            "type": "attraction",
+            "blurb": "The lavish primary residence of the Ottoman sultans for centuries, featuring opulent courtyards, treasury rooms, and harem quarters.",
+            "significance": "Center of political power and imperial administration of the Ottoman Empire for nearly 400 years.",
+            "bestTime": "Opening time at 9:00 AM",
+            "geoQuery": "Topkapi Palace, Istanbul, Turkey",
+            "lat": 41.011344,
+            "lng": 28.9832034,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/10284696709"
+          },
+          {
+            "name": "Suleymaniye Mosque Complex",
+            "type": "gem",
+            "blurb": "Masterpiece of Ottoman architect Mimar Sinan, offering serene courtyards and panoramic views over the Golden Horn.",
+            "significance": "Represents the classical peak of Ottoman architecture and houses the tombs of Suleiman the Magnificent and Roxelana.",
+            "bestTime": "Mid-afternoon between prayer times",
+            "geoQuery": "Suleymaniye Mosque, Istanbul, Turkey",
+            "lat": 41.0162287,
+            "lng": 28.9639548,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/relation/1564032"
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "theme": "Bazaars and Artisanal Traditions",
+        "items": [
+          {
+            "name": "Grand Bazaar",
+            "type": "attraction",
+            "blurb": "One of the world's largest and oldest covered markets, a labyrinth of over 4,000 shops selling carpets, jewelry, and ceramics.",
+            "significance": "Historic heart of commerce in Istanbul since the 15th century.",
+            "bestTime": "Morning",
+            "geoQuery": "Grand Bazaar, Istanbul, Turkey",
+            "lat": 41.0109541,
+            "lng": 28.9680224,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/303807317"
+          },
+          {
+            "name": "Rustem Pasha Mosque",
+            "type": "gem",
+            "blurb": "A small, hidden gem of a mosque renowned for its exquisite, flawless Iznik tiles featuring floral and geometric motifs.",
+            "significance": "Showcase of 16th-century ceramic artistry tucked away near the Spice Bazaar.",
+            "bestTime": "Morning",
+            "geoQuery": "Rustem Pasha Mosque, Istanbul, Turkey",
+            "lat": 41.0169482,
+            "lng": 28.9721115,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/relation/7574356"
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "theme": "The Golden Horn and Maritime Soul",
+        "items": [
+          {
+            "name": "Galata Tower",
+            "type": "attraction",
+            "blurb": "A medieval stone tower that dominates the skyline, offering 360-degree observation decks overlooking the historic peninsula.",
+            "significance": "Built by the Genoese in 1348 as part of their colony fortifications.",
+            "bestTime": "Sunset",
+            "geoQuery": "Galata Tower, Istanbul, Turkey",
+            "lat": 41.0256406,
+            "lng": 28.9742134,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/23236783"
+          },
+          {
+            "name": "Kilic Ali Pasha Complex",
+            "type": "gem",
+            "blurb": "A stunning mosque and Hamam complex designed by Mimar Sinan for a famous Ottoman admiral of Italian origin.",
+            "significance": "Exemplifies the integration of naval power and religious architecture in the 16th century.",
+            "bestTime": "Late morning",
+            "geoQuery": "Kilic Ali Pasha Complex, Istanbul, Turkey",
+            "lat": null,
+            "lng": null,
+            "verified": false,
+            "geoStatus": "not_found",
+            "osmUrl": null
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "theme": "Bosphorus Breezes and Asiatic Shores",
+        "items": [
+          {
+            "name": "Dolmabahce Palace",
+            "type": "attraction",
+            "blurb": "An opulent 19th-century palace blending European neoclassical styles with Ottoman luxury directly on the Bosphorus waterfront.",
+            "significance": "The administrative center of the late Ottoman Empire and final residence of Mustafa Kemal Atatürk.",
+            "bestTime": "Morning",
+            "geoQuery": "Dolmabahce Palace, Istanbul, Turkey",
+            "lat": 41.0389605,
+            "lng": 28.9997735,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/24826707"
+          },
+          {
+            "name": "Uskudar waterfront",
+            "type": "gem",
+            "blurb": "A historic neighborhood on the Asian side known for sunset views across the water toward the Maiden's Tower.",
+            "significance": "Traditional starting point for Hajj pilgrimage caravans and deeply conservative spiritual neighborhood.",
+            "bestTime": "Sunset",
+            "geoQuery": "Uskudar, Istanbul, Turkey",
+            "lat": 41.0265498,
+            "lng": 29.0151321,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/relation/1276889"
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "theme": "Culinary Heritage and Local Markets",
+        "items": [
+          {
+            "name": "Spice Bazaar",
+            "type": "attraction",
+            "blurb": "A fragrant covered market bursting with colorful spices, dried fruits, Turkish delight, and artisanal teas.",
+            "significance": "Historic center for the spice trade originating from Egypt and beyond since the Ottoman era.",
+            "bestTime": "Late morning",
+            "geoQuery": "Spice Bazaar, Istanbul, Turkey",
+            "lat": 41.0164786,
+            "lng": 28.9705376,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/24234971"
+          },
+          {
+            "name": "Kadikoy Market",
+            "type": "gem",
+            "blurb": "A vibrant, authentic food market on the Asian side where locals shop for fresh produce, pickles, fish, and cheeses.",
+            "significance": "The culinary beating heart of modern Istanbul's neighborhood food culture.",
+            "bestTime": "Lunchtime",
+            "geoQuery": "Kadikoy Market, Istanbul, Turkey",
+            "lat": 40.9585052,
+            "lng": 29.1060603,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/13947568187"
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "theme": "Palaces and Parks of the Sultans",
+        "items": [
+          {
+            "name": "Yildiz Palace",
+            "type": "attraction",
+            "blurb": "A vast complex of former imperial pavilions and chalets set amidst sprawling wooded gardens above the Bosphorus.",
+            "significance": "The final seat of government for the Ottoman sultans under Abdul Hamid II.",
+            "bestTime": "Morning",
+            "geoQuery": "Yildiz Palace, Istanbul, Turkey",
+            "lat": 41.0507108,
+            "lng": 29.0117042,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/4477143891"
+          },
+          {
+            "name": "Chora Mosque",
+            "type": "gem",
+            "blurb": "A medieval Byzantine church celebrated for its exceptionally well-preserved and vivid golden mosaics and frescoes.",
+            "significance": "Contains some of the most important surviving examples of late Byzantine art in the world.",
+            "bestTime": "Afternoon",
+            "geoQuery": "Chora Mosque, Istanbul, Turkey",
+            "lat": null,
+            "lng": null,
+            "verified": false,
+            "geoStatus": "not_found",
+            "osmUrl": null
+          }
+        ]
+      }
+    ],
+    "localSecrets": [
+      {
+        "name": "Tevfik Fikret Museum (Eksik Muzeler)",
+        "type": "gem",
+        "blurb": "The former home of a famous Turkish poet perched above the Bosphorus, offering literary history and quiet garden terraces.",
+        "significance": "Preserves the artistic bohemian spirit of late Ottoman intellectuals.",
+        "bestTime": "Afternoon",
+        "geoQuery": "Aşiyan Museum, Istanbul, Turkey",
+        "lat": 41.0826576,
+        "lng": 29.0534518,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/way/746788646"
+      },
+      {
+        "name": "Fener and Balat colorful streets",
+        "type": "gem",
+        "blurb": "Historic Greek and Jewish neighborhoods featuring steep cobblestone hills, historic wooden Ottoman houses, and quiet cafes.",
+        "significance": "Testament to Istanbul's historic multicultural and multi-ethnic communities.",
+        "bestTime": "Morning",
+        "geoQuery": "Balat, Istanbul, Turkey",
+        "lat": 41.0320032,
+        "lng": 28.9482931,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/relation/2463371"
+      },
+      {
+        "name": "Buyuk Valide Han rooftop",
+        "type": "gem",
+        "blurb": "An old merchant caravanserai rooftop offering panoramic, off-the-beaten-path views of the historic peninsula domes.",
+        "significance": "Historic trading post reflecting the bustling merchant routes of the Silk Road.",
+        "bestTime": "Late afternoon",
+        "geoQuery": "Buyuk Valide Han, Istanbul, Turkey",
+        "lat": 41.0131339,
+        "lng": 28.9684607,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/node/5112738029"
+      }
+    ],
+    "events": [
+      {
+        "name": "Istanbul International Film Festival",
+        "whenTypical": "April, annually",
+        "description": "A prestigious cinematic event celebrating international and Turkish independent cinema across historic theaters.",
+        "culturalRoot": "Promotes global artistic dialogue and modern Turkish filmmaking talent."
+      },
+      {
+        "name": "Istanbul International Music Festival",
+        "whenTypical": "June, annually",
+        "description": "Classical music performances hosted in magnificent historic venues like Hagia Irene and Topkapi Palace.",
+        "culturalRoot": "Highlights classical heritage within the city's ancient architectural acoustic spaces."
+      },
+      {
+        "name": "Istanbul Biennial",
+        "whenTypical": "Autumn, every two years",
+        "description": "A leading contemporary art exhibition utilizing unexpected historic buildings, warehouses, and outdoor sites.",
+        "culturalRoot": "Engages contemporary global art movements with Istanbul's deep historical narrative."
+      }
+    ],
+    "experiences": [
+      {
+        "title": "Turkish Coffee Brewing Workshop",
+        "description": "Learn the traditional method of brewing unfiltered coffee over hot sand or flame in a copper cezve.",
+        "howToEngage": "Book a session at an artisanal coffeehouse in Eminonu or Kadikoy.",
+        "respectfulTip": "Always wait for the foam to settle before sipping, and do not drink the grounds at the bottom."
+      },
+      {
+        "title": "Traditional Ebru Paper Marbling",
+        "description": "Create swirling, colorful patterns on thickened water using natural pigments and transfer them to paper.",
+        "howToEngage": "Visit master artisans in workshops around the Sultanahmet or Eyup districts.",
+        "respectfulTip": "Approach the craft with patience and reverence for the centuries-old techniques passed down by masters."
+      },
+      {
+        "title": "Bosphorus Sunset Ferry Ride with Simit and Tea",
+        "description": "Commute across the strait like a local with a warm sesame ring simit and freshly brewed black tea in a tulip glass.",
+        "howToEngage": "Board public city ferries from Eminonu to Uskudar during late afternoon hours.",
+        "respectfulTip": "Offer your seat to elders if the ferry is crowded, and dispose of trash responsibly."
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "Merhaba",
+        "meaning": "Hello"
+      },
+      {
+        "phrase": "Teşekkür ederim",
+        "meaning": "Thank you"
+      },
+      {
+        "phrase": "Lütfen",
+        "meaning": "Please"
+      },
+      {
+        "phrase": "Afiyet olsun",
+        "meaning": "Bon appétit / Enjoy your meal"
+      },
+      {
+        "phrase": "Hesap lütfen",
+        "meaning": "The bill, please"
+      }
+    ],
+    "etiquette": [
+      "Remove your shoes before entering mosques or private Turkish homes.",
+      "Women should carry a scarf to cover their hair when entering active religious sites.",
+      "Greet shopkeepers with a polite 'Merhaba' before browsing or asking questions.",
+      "Accept offered hospitality, such as a glass of Turkish tea, as a gesture of goodwill.",
+      "Dress modestly, covering shoulders and knees, especially in conservative neighborhoods like Fatih and Uskudar."
+    ],
+    "hero": {
+      "title": "Istanbul",
+      "extract": "Istanbul is the largest city in Turkey, a megacity, constituting the country's economic, cultural, and historical center. With a population of over 15 million, it is home to 18% of the population of Turkey. Istanbul is among the largest cities in Europe and in the world by population. It is a city on two continents; about two-thirds of its population live in Europe and the rest in Asia. Istanbul straddles the Bosphorus – one of the world's busiest waterways – in northwestern Turkey, between the Sea of Marmara and the Black Sea. Its area of 5,461 square kilometers (2,109 mi2) is coterminous with Istanbul Province.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Historical_peninsula_and_modern_skyline_of_Istanbul.jpg/330px-Historical_peninsula_and_modern_skyline_of_Istanbul.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "url": "https://en.wikipedia.org/wiki/Istanbul",
+      "imageCredit": {
+        "artist": "Hunanuk",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "fileUrl": "https://commons.wikimedia.org/wiki/File:Historical_peninsula_and_modern_skyline_of_Istanbul.jpg"
+      }
+    },
+    "sources": [
+      {
+        "title": "Hagia Sophia",
+        "extract": "Hagia Sophia, officially the Hagia Sophia Grand Mosque, is a mosque and a major cultural and historical site in Istanbul, Turkey. It was formerly a church (360–1453) and a museum (1935–2020). The last of three church buildings to be successively erected on the site by the Eastern Roman Empire, it was completed in AD 537, becoming the world's largest interior space and among the first to employ a fully pendentive dome. It is considered the epitome of Byzantine architecture and is said to have \"changed the history of architecture\". From its dedication in 360 until 1453, Hagia Sophia served as the cathedral of Constantinople in the Byzantine liturgical tradition, except for the period 1204–1261 when the Latin Crusaders installed their own hierarchy. After the fall of Constantinople in 1453, it served as a mosque, having its minarets added soon after. The site became a museum in 1935, and was redesignated as a mosque in 2020.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Hagia_Sophia_%28228968325%29.jpeg/330px-Hagia_Sophia_%28228968325%29.jpeg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Hagia_Sophia"
+      },
+      {
+        "title": "Topkapı Palace",
+        "extract": "The Topkapı Palace or the Seraglio, is a large museum and library in the east of the Fatih district of Istanbul in Turkey. From the 1460s to the completion of Dolmabahçe Palace in 1853, it served as the administrative center of the Ottoman Empire, and was the main residence of its sultans.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Topkap%C4%B1_-_01.jpg/330px-Topkap%C4%B1_-_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Topkap%C4%B1_Palace"
+      }
+    ],
+    "generatedAt": "2026-10-02T22:23:34.423Z"
+  },
+  "meta": {
+    "mode": "single",
+    "synthesizer": "gemini",
+    "panel": [
+      {
+        "model": "mistralai/mistral-large-3-675b-instruct-2512",
+        "ok": false,
+        "ms": 96
+      },
+      {
+        "model": "openai/gpt-oss-120b",
+        "ok": false,
+        "ms": 96
+      }
+    ],
+    "panelistsUsed": 0,
+    "degraded": true,
+    "model": "gemini-3.5-flash-lite",
+    "attempts": [
+      {
+        "model": "gemini-3.5-flash-lite",
+        "status": 200,
+        "ms": 11019
+      }
+    ]
+  },
+  "dest": {
+    "lat": 41.006381,
+    "lng": 28.9758715,
+    "bbox": [
+      40.846381,
+      41.166381,
+      28.8158715,
+      29.1358715
+    ],
+    "countryCode": "tr",
+    "displayName": "İstanbul, Fatih, İstanbul, Marmara Bölgesi, 34122, Türkiye"
+  },
+  "refBox": [
+    40.846381,
+    41.166381,
+    28.8158715,
+    29.1358715
+  ]
+}

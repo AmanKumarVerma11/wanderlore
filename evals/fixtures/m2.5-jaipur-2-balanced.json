@@ -1,0 +1,529 @@
+{
+  "case": {
+    "id": "jaipur-2-balanced",
+    "tags": [
+      "core"
+    ],
+    "request": {
+      "destination": "Jaipur",
+      "interests": [
+        "Architecture",
+        "Art & crafts"
+      ],
+      "days": 2,
+      "pace": "balanced"
+    }
+  },
+  "pipeline": "plan.ts (/Users/aman/Desktop/Code/Aman/wanderlore/lib)",
+  "ms": 21913,
+  "outcome": "ok",
+  "calls": [
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Jaipur",
+      "start": 0,
+      "ms": 10,
+      "status": 200
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.5-flash-lite:generateContent",
+      "start": 10,
+      "ms": 7648,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Jaipur",
+      "start": 7660,
+      "ms": 239,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Amber_Fort",
+      "start": 7661,
+      "ms": 417,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Jantar_Mantar",
+      "start": 7662,
+      "ms": 229,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/City_Palace",
+      "start": 7663,
+      "ms": 226,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Amber Fort",
+      "start": 7663,
+      "ms": 676,
+      "status": 200
+    },
+    {
+      "host": "commons.wikimedia.org",
+      "label": "/w/api.php",
+      "start": 7899,
+      "ms": 5955,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Jantar Mantar",
+      "start": 8764,
+      "ms": 509,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Anokhi Museum of Hand Printing",
+      "start": 9865,
+      "ms": 1036,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "City Palace",
+      "start": 10966,
+      "ms": 360,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Hawa Mahal",
+      "start": 12067,
+      "ms": 623,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Tripolia Bazaar",
+      "start": 13167,
+      "ms": 194,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Panna Meena ka Kund",
+      "start": 14268,
+      "ms": 1193,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Garh Ganesh Temple",
+      "start": 15463,
+      "ms": 504,
+      "status": 200
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.1-flash-lite:generateContent",
+      "start": 15968,
+      "ms": 4502,
+      "status": "AbortError"
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.5-flash-lite:generateContent",
+      "start": 20471,
+      "ms": 1440,
+      "status": 200
+    }
+  ],
+  "itinerary": {
+    "input": {
+      "destination": "Jaipur",
+      "interests": [
+        "Architecture",
+        "Art & crafts"
+      ],
+      "days": 2,
+      "pace": "balanced"
+    },
+    "destinationFull": "Jaipur, India",
+    "story": "Pink-hued walls rise from the dusty plains of Rajasthan, carrying the whispers of Rajput valor and architectural ambition. Founded in 1727 by Maharaja Sawai Jai Singh II, Jaipur was meticulously planned according to ancient Vedic grid systems, marking a radical departure from the labyrinthine fort cities of its predecessors. Every crumbling facade, bustling bazaar, and sun-drenched courtyard pulses with a vibrant rhythm where ancient royal patronage still breathes through generations of master artisans.\n\nWalking through the old walled city feels like stepping into a living miniature painting. The air is thick with the scent of burning incense, crushed marigolds, and sizzling street delicacies, punctuated by the rhythmic clinking of brass smiths and the whir of block-printing wooden blocks. Beneath the imposing shadows of ancient hilltop forts, Jaipur remains an unyielding bastion of color, where royal heritage is not merely preserved behind glass, but worn proudly in the turbans of its people and carved into every sandstone lattice.",
+    "heritageSummary": "Jaipur is globally celebrated for its magnificent Rajput and Mughal architecture, epitomized by UNESCO World Heritage sites like Jantar Mantar and the sprawling Amber Fort. It is a legendary crucible of traditional Indian arts, renowned worldwide for block printing, blue pottery, gemstone cutting, and intricate meenakari enamelwork. This heritage matters because it represents an unbroken lineage of royal craftsmanship that continues to sustain indigenous communities and define India's aesthetic identity.",
+    "center": {
+      "lat": 26.9154576,
+      "lng": 75.8189817
+    },
+    "days": [
+      {
+        "day": 1,
+        "theme": "Royal Foundations and Ancient Astronomy",
+        "items": [
+          {
+            "name": "Amber Fort",
+            "type": "attraction",
+            "blurb": "A breathtaking hilltop fortress complex blending Hindu and Mughal architectural grandeur, featuring the dazzling mirror-inlaid Sheesh Mahal.",
+            "significance": "The historic seat of the Kachwaha Rajputs before the founding of Jaipur city.",
+            "bestTime": "Morning",
+            "geoQuery": "Amber Fort, Jaipur, India",
+            "lat": 26.9860728,
+            "lng": 75.8500797,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/relation/2591473"
+          },
+          {
+            "name": "Jantar Mantar",
+            "type": "attraction",
+            "blurb": "An extraordinary collection of architectural astronomical instruments built by Maharaja Sawai Jai Singh II.",
+            "significance": "A UNESCO World Heritage site housing the world's largest stone sundial.",
+            "bestTime": "Late Morning",
+            "geoQuery": "Jantar Mantar, Jaipur, India",
+            "lat": 26.9247694,
+            "lng": 75.8245002,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/102879535"
+          },
+          {
+            "name": "Anokhi Museum of Hand Printing",
+            "type": "gem",
+            "blurb": "A restored 16th-century mansion dedicated to the preservation and interpretation of traditional hand woodblock printing.",
+            "significance": "Showcases the intricate techniques and historical roots of Jaipur's textile heritage.",
+            "bestTime": "Afternoon",
+            "geoQuery": "Anokhi Museum of Hand Printing, Jaipur, India",
+            "lat": null,
+            "lng": null,
+            "verified": false,
+            "geoStatus": "not_found",
+            "osmUrl": null
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "theme": "Bazaars, Craftsmanship, and Palatial Splendor",
+        "items": [
+          {
+            "name": "City Palace",
+            "type": "attraction",
+            "blurb": "A sprawling complex of courtyards, gardens, and buildings blending Rajasthani and Mughal architectural styles.",
+            "significance": "The current residence of the royal family and a profound repository of royal artifacts.",
+            "bestTime": "Morning",
+            "geoQuery": "City Palace, Jaipur, India",
+            "lat": 26.9262096,
+            "lng": 75.8238346,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/455720627"
+          },
+          {
+            "name": "Hawa Mahal",
+            "type": "attraction",
+            "blurb": "The iconic Palace of Winds featuring a honeycomb-like facade of 953 small windows designed for royal women to observe street life.",
+            "significance": "An architectural masterpiece of the Rajput era and a symbol of Jaipur.",
+            "bestTime": "Midday",
+            "geoQuery": "Hawa Mahal, Jaipur, India",
+            "lat": 26.923932,
+            "lng": 75.8268652,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/542886858"
+          },
+          {
+            "name": "Tripolia Bazaar",
+            "type": "gem",
+            "blurb": "One of Jaipur's oldest and busiest markets, famous for traditional ironware, brassware, and exquisite textiles.",
+            "significance": "Offers a completely authentic window into everyday trading culture away from sanitized tourist shops.",
+            "bestTime": "Late Afternoon",
+            "geoQuery": "Tripolia Bazaar, Jaipur, India",
+            "lat": 26.9235509,
+            "lng": 75.8238397,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/28827964"
+          }
+        ]
+      }
+    ],
+    "localSecrets": [
+      {
+        "name": "Panna Meena ka Kund",
+        "type": "gem",
+        "blurb": "A striking historical stepwell featuring symmetrical, crisscrossing stairs and receding architectural tiers.",
+        "significance": "An ingenious ancient water conservation structure that provides stunning geometric perspectives.",
+        "bestTime": "Early Morning",
+        "geoQuery": "Panna Meena ka Kund, Jaipur, India",
+        "lat": null,
+        "lng": null,
+        "verified": false,
+        "geoStatus": "not_found",
+        "osmUrl": null
+      },
+      {
+        "name": "Garh Ganesh Temple",
+        "type": "gem",
+        "blurb": "A hilltop temple dedicated to Lord Ganesha, reached by climbing a steep flight of hundreds of stairs.",
+        "significance": "Built by Maharaja Sawai Jai Singh II before Jaipur was founded, offering sweeping views of the city.",
+        "bestTime": "Sunset",
+        "geoQuery": "Garh Ganesh Temple, Jaipur, India",
+        "lat": null,
+        "lng": null,
+        "verified": false,
+        "geoStatus": "not_found",
+        "osmUrl": null
+      }
+    ],
+    "events": [
+      {
+        "name": "Jaipur Literature Festival",
+        "whenTypical": "January, annually",
+        "description": "The world's largest free literary gathering, bringing together global thinkers, authors, and artists.",
+        "culturalRoot": "Celebrates Jaipur's longstanding tradition of royal patronage of arts, poetry, and intellectual discourse."
+      },
+      {
+        "name": "Elephant Festival",
+        "whenTypical": "March, annually",
+        "description": "A vibrant celebration featuring brightly painted elephants, traditional folk dances, and spirited rural sports.",
+        "culturalRoot": "Rooted in Rajput royalty where elephants held immense ceremonial and military significance."
+      },
+      {
+        "name": "Gangaur Festival",
+        "whenTypical": "March-April, annually",
+        "description": "A colorful festival celebrating marital bliss and spring, marked by processions of Goddess Gauri.",
+        "culturalRoot": "Deeply tied to Rajasthani folklore, devotion, and women's cultural traditions."
+      }
+    ],
+    "experiences": [
+      {
+        "title": "Traditional Block Printing Masterclass",
+        "description": "Learn the delicate art of hand-stamping vibrant dyes onto fine cotton using carved wooden blocks.",
+        "howToEngage": "Book a half-day session at a local artisan studio in Sanganer or Amer.",
+        "respectfulTip": "Always ask permission before photographing master craftspeople at work and support their livelihood by purchasing directly."
+      },
+      {
+        "title": "Blue Pottery Workshop",
+        "description": "Try your hand at shaping and painting Jaipur's distinctive turquoise-glazed pottery, which uses quartz stone instead of clay.",
+        "howToEngage": "Visit specialized community co-operatives in the industrial or old city areas.",
+        "respectfulTip": "Show patience; ceramic arts require immense precision and respect for traditional techniques."
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "खamma ghani",
+        "meaning": "Traditional Rajasthani greeting meaning 'greetings with much abundance'",
+        "lang": "hi-IN",
+        "pronunciation": "KHAH-mah ghah-NEE"
+      },
+      {
+        "phrase": "धन्यवाद",
+        "meaning": "Thank you",
+        "lang": "hi-IN",
+        "pronunciation": "dhahn-yah-VAHD"
+      },
+      {
+        "phrase": "नमस्ते",
+        "meaning": "Hello / Greetings",
+        "lang": "hi-IN",
+        "pronunciation": "nah-mah-STAY"
+      },
+      {
+        "phrase": "कितना है?",
+        "meaning": "How much is this?",
+        "lang": "hi-IN",
+        "pronunciation": "kit-NAH hai"
+      }
+    ],
+    "etiquette": [
+      "Always remove your shoes before entering temples, shrines, and private homes.",
+      "Dress modestly by keeping shoulders and knees covered, particularly when visiting sacred sites.",
+      "Use your right hand when giving or receiving money, gifts, or food, as the left hand is considered traditionally unclean.",
+      "Always ask for permission before photographing local residents, especially elders and artisans."
+    ],
+    "hero": {
+      "title": "Jaipur",
+      "extract": "Jaipur is the capital and the largest city of the north-western Indian state of Rajasthan. As of 2011, the city had a population of 3.1 million, making it the tenth most populous city in the country. Located 268 km from the national capital New Delhi, Jaipur is also known as the Pink City due to the dominant colour scheme of its buildings in the old city.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg/330px-East_facade_Hawa_Mahal_Jaipur_from_ground_level_%28July_2022%29_-_img_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "url": "https://en.wikipedia.org/wiki/Jaipur",
+      "imageCredit": {
+        "artist": "Chainwit.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "fileUrl": "https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg"
+      }
+    },
+    "sources": [
+      {
+        "title": "Amber Fort",
+        "extract": "Amer Fort or Amber Fort is a fort located in Amer, Rajasthan, India. Amer is a town with an area of 4 square kilometres (1.5 sq mi) located 11 kilometres (6.8 mi) from Jaipur, the capital of Rajasthan. Located high on a hill, it is the principal tourist attraction in Jaipur. Amer Fort is known for its artistic style elements. With its large ramparts and series of gates and cobbled paths, the fort overlooks Maota Lake, which is the main source of water for the Amer Palace.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/20191219_Fort_Amber%2C_Amer%2C_Jaipur_0955_9481.jpg/330px-20191219_Fort_Amber%2C_Amer%2C_Jaipur_0955_9481.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Amber_Fort"
+      },
+      {
+        "title": "Jantar Mantar",
+        "extract": "A Jantar Mantar is an assembly of stone-built astronomical instruments, designed to be used with the naked eye. There were five Jantar Mantars in India, built between 1724 and 1735. All were built at the command of the Sawai Jai Singh II, who had a keen interest in mathematics, architecture and astronomy. A total of five Jantar Mantars were constructed across North India: Jaipur, Delhi, Ujjain, Varanasi, and Mathura. These compilations or Mishra Yantra gather up to 19 different astronomical instruments.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Jantar_Mantar_at_Jaipur.jpg/330px-Jantar_Mantar_at_Jaipur.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Jantar_Mantar"
+      }
+    ],
+    "generatedAt": "2026-10-03T18:32:04.981Z"
+  },
+  "meta": {
+    "mode": "single",
+    "synthesizer": "gemini",
+    "panel": [],
+    "panelistsUsed": 0,
+    "degraded": false,
+    "model": "gemini-3.5-flash-lite",
+    "attempts": [
+      {
+        "model": "gemini-3.5-flash-lite",
+        "status": 200,
+        "ms": 7650
+      }
+    ]
+  },
+  "dest": {
+    "lat": 26.9154576,
+    "lng": 75.8189817,
+    "bbox": [
+      26.7554576,
+      27.0754576,
+      75.6589817,
+      75.9789817
+    ],
+    "countryCode": "in",
+    "displayName": "Jaipur, Jaipur Municipal Corporation, Jaipur Tehsil, Jaipur, Rajasthan, 302001, India"
+  },
+  "trace": {
+    "totalMs": 21913,
+    "spans": [
+      {
+        "name": "destination",
+        "start": 0,
+        "ms": 10,
+        "outcome": "found",
+        "detail": "Jaipur"
+      },
+      {
+        "name": "gemini",
+        "start": 10,
+        "ms": 7650,
+        "outcome": "200",
+        "detail": "gemini-3.5-flash-lite"
+      },
+      {
+        "name": "wikipedia",
+        "start": 7660,
+        "ms": 230,
+        "outcome": "no article",
+        "detail": "City Palace"
+      },
+      {
+        "name": "wikipedia",
+        "start": 7660,
+        "ms": 232,
+        "outcome": "found",
+        "detail": "Jantar Mantar"
+      },
+      {
+        "name": "wikipedia",
+        "start": 7660,
+        "ms": 239,
+        "outcome": "found",
+        "detail": "Jaipur"
+      },
+      {
+        "name": "wikipedia",
+        "start": 7660,
+        "ms": 419,
+        "outcome": "found",
+        "detail": "Amber Fort"
+      },
+      {
+        "name": "lookup",
+        "start": 7663,
+        "ms": 677,
+        "outcome": "found",
+        "detail": "Amber Fort"
+      },
+      {
+        "name": "photo-credit",
+        "start": 7899,
+        "ms": 5955,
+        "outcome": "found",
+        "detail": "East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg"
+      },
+      {
+        "name": "lookup",
+        "start": 8764,
+        "ms": 511,
+        "outcome": "found",
+        "detail": "Jantar Mantar"
+      },
+      {
+        "name": "lookup",
+        "start": 9865,
+        "ms": 1037,
+        "outcome": "not found",
+        "detail": "Anokhi Museum of Hand Printing"
+      },
+      {
+        "name": "lookup",
+        "start": 10965,
+        "ms": 361,
+        "outcome": "found",
+        "detail": "City Palace"
+      },
+      {
+        "name": "lookup",
+        "start": 12066,
+        "ms": 625,
+        "outcome": "found",
+        "detail": "Hawa Mahal"
+      },
+      {
+        "name": "lookup",
+        "start": 13167,
+        "ms": 195,
+        "outcome": "found",
+        "detail": "Tripolia Bazaar"
+      },
+      {
+        "name": "lookup",
+        "start": 14268,
+        "ms": 1195,
+        "outcome": "not found",
+        "detail": "Panna Meena ka Kund"
+      },
+      {
+        "name": "lookup",
+        "start": 15463,
+        "ms": 505,
+        "outcome": "not found",
+        "detail": "Garh Ganesh Temple"
+      },
+      {
+        "name": "repair",
+        "start": 15968,
+        "ms": 4502,
+        "outcome": "timeout",
+        "detail": "gemini-3.1-flash-lite"
+      },
+      {
+        "name": "repair",
+        "start": 20470,
+        "ms": 1442,
+        "outcome": "200",
+        "detail": "gemini-3.5-flash-lite"
+      }
+    ]
+  },
+  "refBox": [
+    26.7554576,
+    27.0754576,
+    75.6589817,
+    75.9789817
+  ]
+}

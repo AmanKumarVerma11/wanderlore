@@ -1,0 +1,717 @@
+{
+  "case": {
+    "id": "hanoi-2-balanced",
+    "tags": [
+      "core"
+    ],
+    "request": {
+      "destination": "Hanoi",
+      "interests": [
+        "Food & markets",
+        "Local everyday life"
+      ],
+      "days": 2,
+      "pace": "balanced"
+    }
+  },
+  "pipeline": "plan.ts (/Users/aman/Desktop/Code/Aman/wanderlore/lib)",
+  "ms": 32142,
+  "outcome": "ok",
+  "calls": [
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Hanoi",
+      "start": 0,
+      "ms": 19,
+      "status": 200
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.5-flash-lite:generateContent",
+      "start": 19,
+      "ms": 9422,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Hanoi",
+      "start": 9442,
+      "ms": 1036,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Hoan_Kiem_Lake",
+      "start": 9442,
+      "ms": 459,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/Dong_Xuan_Market",
+      "start": 9443,
+      "ms": 239,
+      "status": 200
+    },
+    {
+      "host": "en.wikipedia.org",
+      "label": "/api/rest_v1/page/summary/St._Joseph's_Cathedral",
+      "start": 9443,
+      "ms": 241,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Hoan Kiem Lake",
+      "start": 9443,
+      "ms": 1035,
+      "status": 200
+    },
+    {
+      "host": "commons.wikimedia.org",
+      "label": "/w/api.php",
+      "start": 10479,
+      "ms": 532,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Dong Xuan Market",
+      "start": 10545,
+      "ms": 1023,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Hang Be Market",
+      "start": 11645,
+      "ms": 825,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "St. Joseph's Cathedral",
+      "start": 12746,
+      "ms": 1237,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Long Bien Bridge",
+      "start": 13984,
+      "ms": 625,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Hanoi Ceramic Mosaic Mural",
+      "start": 15084,
+      "ms": 627,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Train Street Hanoi",
+      "start": 16186,
+      "ms": 630,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Temple of Literature",
+      "start": 17287,
+      "ms": 240,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Phuc Kien Pagoda",
+      "start": 18389,
+      "ms": 412,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Quang Ba Flower Market",
+      "start": 19490,
+      "ms": 463,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "B52 Victory Museum",
+      "start": 20591,
+      "ms": 947,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Phung Hung Mural Street",
+      "start": 21692,
+      "ms": 875,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Ceramic Mosaic Mural",
+      "start": 22793,
+      "ms": 537,
+      "status": 200
+    },
+    {
+      "host": "generativelanguage.googleapis.com",
+      "label": "gemini-3.1-flash-lite:generateContent",
+      "start": 23331,
+      "ms": 3601,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Chợ Hàng Bè",
+      "start": 26934,
+      "ms": 538,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Con đường gốm sứ",
+      "start": 28035,
+      "ms": 723,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Chùa Phúc Kiến",
+      "start": 29137,
+      "ms": 724,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Chợ hoa Quảng Bá",
+      "start": 30237,
+      "ms": 930,
+      "status": 200
+    },
+    {
+      "host": "nominatim.openstreetmap.org",
+      "label": "Phố bích họa Phùng Hưng",
+      "start": 31338,
+      "ms": 802,
+      "status": 200
+    }
+  ],
+  "itinerary": {
+    "input": {
+      "destination": "Hanoi",
+      "interests": [
+        "Food & markets",
+        "Local everyday life"
+      ],
+      "days": 2,
+      "pace": "balanced"
+    },
+    "destinationFull": "Hanoi, Vietnam",
+    "story": "Hanoi is a living tapestry where ancient oriental heritage breathes alongside crumbling French colonial grace. The morning air in the Old Quarter carries the unmistakable aroma of star anise, simmering bone broth, and the faint hum of millions of motorbikes navigating centuries-old merchant streets named after the guilds that once populated them. Sidewalks are not merely walkways here; they are extended living rooms where elders sip dark coffee through sweetened condensed milk while children chase playing cats beneath moss-draped banyan trees.\n\nTime dissolves effortlessly in Hanoi, whether you are drifting past the misty shores of Hoan Kiem Lake at dawn as practitioners move in synchronized tai chi, or losing yourself in the labyrinthine alleys of the 36 Guild Streets. Every weathered shophouse, narrow tube-house, and incense-filled pagoda tells a story of resilience, craftsmanship, and a deeply rooted community spirit that refuses to be overshadowed by rapid modernity.",
+    "heritageSummary": "Hanoi's heritage is defined by over a thousand years of imperial history, architectural syncretism, and vibrant artisan guilds. From the UNESCO-listed Central Sector of the Imperial Citadel of Thang Long to the centuries-old traditional craft villages surrounding the city, its culture thrives on continuity. Cuisine here is elevated to an art form, deeply tied to seasonal ingredients, communal dining, and generations of culinary mastery.",
+    "center": {
+      "lat": 21.0283334,
+      "lng": 105.854041
+    },
+    "days": [
+      {
+        "day": 1,
+        "theme": "Old Quarter Markets and Morning Street Life",
+        "items": [
+          {
+            "name": "Hoan Kiem Lake",
+            "type": "attraction",
+            "blurb": "The pulsing heart of Hanoi, surrounded by weeping willows and the iconic red The Huc Bridge leading to Ngoc Son Temple.",
+            "significance": "Spiritual and geographical center of the city, deeply tied to the legend of the Magic Sword and the Golden Turtle God.",
+            "bestTime": "Early morning around 6:00 AM",
+            "geoQuery": "Hoan Kiem Lake, Hanoi, Vietnam",
+            "lat": 21.0288313,
+            "lng": 105.8525357,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/relation/198437"
+          },
+          {
+            "name": "Dong Xuan Market",
+            "type": "attraction",
+            "blurb": "The largest indoor market in Hanoi, spanning three massive levels of textiles, dried goods, and household wares.",
+            "significance": "Operating since the French colonial era, it remains the principal wholesale hub for northern Vietnam.",
+            "bestTime": "Mid-morning",
+            "geoQuery": "Dong Xuan Market, Hanoi, Vietnam",
+            "lat": 21.0382556,
+            "lng": 105.849671,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/1212230635"
+          },
+          {
+            "name": "Hang Be Market",
+            "type": "gem",
+            "blurb": "A bustling, narrow street market tucked into the Old Quarter specializing in fresh produce, herbs, and ritual offerings.",
+            "significance": "A vital daily gathering space where local home cooks source ingredients for traditional family meals.",
+            "bestTime": "Morning",
+            "geoQuery": "Hang Be Market, Hanoi, Vietnam",
+            "lat": null,
+            "lng": null,
+            "verified": false,
+            "geoStatus": "not_found",
+            "osmUrl": null
+          },
+          {
+            "name": "St. Joseph's Cathedral",
+            "type": "attraction",
+            "blurb": "A late 19th-century neo-Gothic church modeled after Notre-Dame de Paris, featuring weathered stonewalls and stained glass.",
+            "significance": "One of the earliest architectural reminders of French influence, now surrounded by a vibrant café culture.",
+            "bestTime": "Late afternoon",
+            "geoQuery": "St. Joseph's Cathedral, Hanoi, Vietnam",
+            "lat": 21.0286483,
+            "lng": 105.8488566,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/28912942"
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "theme": "Culinary Heritage and Hidden Alleys",
+        "items": [
+          {
+            "name": "Long Bien Bridge",
+            "type": "attraction",
+            "blurb": "A historic cantilever bridge spanning the Red River, designed by the firm of Gustave Eiffel.",
+            "significance": "A symbol of Hanoi's resilience, having survived heavy bombing during the Vietnam War.",
+            "bestTime": "Sunset",
+            "geoQuery": "Long Bien Bridge, Hanoi, Vietnam",
+            "lat": 21.0430652,
+            "lng": 105.8580334,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/way/163049860"
+          },
+          {
+            "name": "Hanoi Ceramic Mosaic Mural",
+            "type": "gem",
+            "blurb": "A massive, colorful ceramic mosaic running for several kilometers along the Red River dike wall.",
+            "significance": "Recognized by Guinness World Records as the largest ceramic mosaic in the world, depicting Vietnamese history.",
+            "bestTime": "Afternoon",
+            "geoQuery": "Ceramic Mosaic Mural, Hanoi, Vietnam",
+            "lat": null,
+            "lng": null,
+            "verified": false,
+            "geoStatus": "not_found",
+            "osmUrl": null
+          },
+          {
+            "name": "Train Street Hanoi",
+            "type": "gem",
+            "blurb": "A narrow residential alleyway where a commuter train passes incredibly close to house fronts and tiny cafes.",
+            "significance": "Demonstrates the resourcefulness and unique proximity of everyday urban life alongside historic rail infrastructure.",
+            "bestTime": "Check local train schedules in the afternoon",
+            "geoQuery": "Hanoi Train Street, Hanoi, Vietnam",
+            "lat": 21.0309507,
+            "lng": 105.8448153,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/node/12078134487"
+          },
+          {
+            "name": "Temple of Literature",
+            "type": "attraction",
+            "blurb": "Vietnam's first national university, featuring tranquil courtyards, ancient pavilions, and stone turtle stelae.",
+            "significance": "Dedicated to Confucius, honoring scholars and the nation's profound historical reverence for education.",
+            "bestTime": "Morning",
+            "geoQuery": "Temple of Literature, Hanoi, Vietnam",
+            "lat": 21.0287903,
+            "lng": 105.8359533,
+            "verified": true,
+            "geoStatus": "verified",
+            "osmUrl": "https://www.openstreetmap.org/relation/21422528"
+          }
+        ]
+      }
+    ],
+    "localSecrets": [
+      {
+        "name": "Phuc Kien Pagoda",
+        "type": "gem",
+        "blurb": "An ornate Chinese-influenced assembly hall and temple tucked away from the main tourist paths.",
+        "significance": "Highlights the historical multicultural merchant communities that helped shape the Old Quarter.",
+        "bestTime": "Morning",
+        "geoQuery": "Phuc Kien Pagoda, Hanoi, Vietnam",
+        "lat": null,
+        "lng": null,
+        "verified": false,
+        "geoStatus": "not_found",
+        "osmUrl": null
+      },
+      {
+        "name": "Quang Ba Flower Market",
+        "type": "gem",
+        "blurb": "A wholesale night market bursting with thousands of fresh blooms brought in from surrounding provinces.",
+        "significance": "The nocturnal heartbeat of Hanoi's floral trade, offering a sensory experience before dawn breaks.",
+        "bestTime": "2:00 AM to 5:00 AM",
+        "geoQuery": "Quang Ba Flower Market, Hanoi, Vietnam",
+        "lat": 21.0682495,
+        "lng": 105.8272643,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/node/2136318858",
+        "osmName": "Chợ Hoa Quảng Bá"
+      },
+      {
+        "name": "B52 Victory Museum",
+        "type": "gem",
+        "blurb": "A specialized museum displaying wreckage of downed American B-52 bombers amidst residential streets.",
+        "significance": "Offers deep historical context regarding the harrowing events of the Vietnam War from a local perspective.",
+        "bestTime": "Morning",
+        "geoQuery": "B52 Victory Museum, Hanoi, Vietnam",
+        "lat": 21.0355466,
+        "lng": 105.8260952,
+        "verified": true,
+        "geoStatus": "verified",
+        "osmUrl": "https://www.openstreetmap.org/way/1019050231"
+      },
+      {
+        "name": "Phung Hung Mural Street",
+        "type": "gem",
+        "blurb": "A series of vibrant public art installations painted inside the arched concrete bays of the railway viaduct.",
+        "significance": "Celebrates Hanoi's transition into a modern creative hub while preserving memories of the past.",
+        "bestTime": "Late afternoon",
+        "geoQuery": "Phung Hung Mural Street, Hanoi, Vietnam",
+        "lat": null,
+        "lng": null,
+        "verified": false,
+        "geoStatus": "not_found",
+        "osmUrl": null
+      }
+    ],
+    "events": [
+      {
+        "name": "Mid-Autumn Festival",
+        "whenTypical": "September or October (8th month of lunar calendar)",
+        "description": "Children parade through the Old Quarter with glowing lanterns, lion dances take over the streets, and mooncakes are shared.",
+        "culturalRoot": "Ancient agricultural celebration honoring the harvest and community prosperity."
+      },
+      {
+        "name": "Tet Nguyen Dan (Lunar New Year)",
+        "whenTypical": "January or February, annually",
+        "description": "The city transforms with peach blossoms, ancestral altars are prepared, and families gather for feasts.",
+        "culturalRoot": "The most sacred holiday in Vietnamese culture, welcoming spring and honoring ancestors."
+      },
+      {
+        "name": "Perfume Pagoda Festival",
+        "whenTypical": "Spring (February to March, annually)",
+        "description": "Pilgrims travel by wooden boat along mountain streams and hike to sacred cave shrines to pray for fortune.",
+        "culturalRoot": "A major Buddhist pilgrimage combining spiritual devotion with natural beauty."
+      }
+    ],
+    "experiences": [
+      {
+        "title": "Egg Coffee Making Workshop",
+        "description": "Learn the history and technique of whisking rich egg yolks with condensed milk to pour over dark Vietnamese robusta.",
+        "howToEngage": "Book a small-batch class at an independent café in the Old Quarter.",
+        "respectfulTip": "Appreciate the historical ingenuity of the drink, which was invented during dairy shortages in the mid-20th century."
+      },
+      {
+        "title": "Traditional Street Food Walking Tour with a Local",
+        "description": "Navigate labyrinthine alleys to sample regional specialties like bun cha, banh cuon, and local fermented rice wine.",
+        "howToEngage": "Hire an independent student guide through community-based tourism initiatives.",
+        "respectfulTip": "Pull your plastic stool in close to let others pass, and always finish what is served on your plate."
+      },
+      {
+        "title": "Traditional Lacquerware Appreciation",
+        "description": "Observe master artisans applying multi-layered natural tree sap and polishing designs with gold leaf.",
+        "howToEngage": "Visit independent workshops in traditional craft villages on the outskirts like Ha Thai.",
+        "respectfulTip": "Ask permission before taking close-up photographs of artisans at work."
+      }
+    ],
+    "phrases": [
+      {
+        "phrase": "Xin chào",
+        "meaning": "Hello"
+      },
+      {
+        "phrase": "Cảm ơn",
+        "meaning": "Thank you"
+      },
+      {
+        "phrase": "Ngon quá",
+        "meaning": "Delicious!"
+      },
+      {
+        "phrase": "Bao nhiêu tiền?",
+        "meaning": "How much is this?"
+      },
+      {
+        "phrase": "Tạm biệt",
+        "meaning": "Goodbye"
+      }
+    ],
+    "etiquette": [
+      "Dress modestly when visiting temples and sacred sites, covering your shoulders and knees.",
+      "Remove your shoes when entering homes and certain traditional establishments or temples.",
+      "Use both hands when handing money, business cards, or gifts to someone, especially elders.",
+      "Avoid public displays of intense anger or confrontation, as maintaining harmony is culturally valued.",
+      "Do not stick your chopsticks vertically into a bowl of rice, as this resembles incense burned for the dead."
+    ],
+    "hero": {
+      "title": "Hanoi",
+      "extract": "Hanoi is the capital and second-most populous centrally-governed city of Vietnam. It covers an area of 3,358.6 km2 (1,296.8 mi2), and as of 2025 has a population of 8,807,523. Hanoi had the second-highest gross regional domestic product of all Vietnamese provinces and centrally-governed cities at US$48 billion in 2023, behind Ho Chi Minh City. It hosts 78 foreign embassies, the headquarters of the Vietnam People's Army (VPA), its Vietnam National University system, and other governmental organizations. Hanoi had 18.7 million domestic and international visitors in 2022. It hosts the Imperial Citadel of Thăng Long, Ho Chi Minh Mausoleum, Hoàn Kiếm Lake, West Lake, and Ba Vì National Park near the outskirts of the municipality. Hanoi's urban area has architectural styles, including pre-colonial Vietnamese architecture, French colonial architecture, brutalist apartments and disorganized alleys and tube houses stemming from the city's growth in the 20th century.",
+      "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Hanoi_skyline_with_Ba_Vi_Mountain.jpg/330px-Hanoi_skyline_with_Ba_Vi_Mountain.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+      "url": "https://en.wikipedia.org/wiki/Hanoi",
+      "imageCredit": {
+        "artist": "Quangnlnhe182394",
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "fileUrl": "https://commons.wikimedia.org/wiki/File:Hanoi_skyline_with_Ba_Vi_Mountain.jpg"
+      }
+    },
+    "sources": [
+      {
+        "title": "Hoàn Kiếm Lake",
+        "extract": "Hoàn Kiếm Lake, also known as Sword Lake or Tả Vọng Lake, is a fresh water lake, measuring some 12 ha in the historical center of Hanoi, the capital city of Vietnam.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Thap_Rua.jpg/330px-Thap_Rua.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/Ho%C3%A0n_Ki%E1%BA%BFm_Lake"
+      },
+      {
+        "title": "Đồng Xuân Market",
+        "extract": "Đồng Xuân Market is a market in the center district Hoàn Kiếm of Hanoi, Vietnam. Originally built by the French administration in 1889, Đồng Xuân Market has been renovated several times with the latest being in 1994 after a fire that almost destroyed the market. Nowadays, Đồng Xuân Market is the largest covered market of Hanoi where the wholesale traders sell everything from clothes and household goods to foodstuffs.",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Dong_Xuan_market.jpg/330px-Dong_Xuan_market.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+        "url": "https://en.wikipedia.org/wiki/%C4%90%E1%BB%93ng_Xu%C3%A2n_Market"
+      },
+      {
+        "title": "St. Joseph's Cathedral",
+        "extract": "St. Joseph's Cathedral is the name of numerous cathedral churches that are named for Saint Joseph.",
+        "image": null,
+        "url": "https://en.wikipedia.org/wiki/St._Joseph's_Cathedral"
+      }
+    ],
+    "generatedAt": "2026-10-03T17:28:50.059Z"
+  },
+  "meta": {
+    "mode": "single",
+    "synthesizer": "gemini",
+    "panel": [],
+    "panelistsUsed": 0,
+    "degraded": false,
+    "model": "gemini-3.5-flash-lite",
+    "attempts": [
+      {
+        "model": "gemini-3.5-flash-lite",
+        "status": 200,
+        "ms": 9423
+      }
+    ]
+  },
+  "dest": {
+    "lat": 21.0283334,
+    "lng": 105.854041,
+    "bbox": [
+      20.5645154,
+      21.3854176,
+      105.2889615,
+      106.0200407
+    ],
+    "countryCode": "vn",
+    "displayName": "Thành phố Hà Nội, Việt Nam"
+  },
+  "trace": {
+    "totalMs": 32141,
+    "spans": [
+      {
+        "name": "destination",
+        "start": 0,
+        "ms": 19,
+        "outcome": "found",
+        "detail": "Hanoi"
+      },
+      {
+        "name": "gemini",
+        "start": 19,
+        "ms": 9423,
+        "outcome": "200",
+        "detail": "gemini-3.5-flash-lite"
+      },
+      {
+        "name": "wikipedia",
+        "start": 9442,
+        "ms": 240,
+        "outcome": "found",
+        "detail": "Dong Xuan Market"
+      },
+      {
+        "name": "wikipedia",
+        "start": 9442,
+        "ms": 243,
+        "outcome": "found",
+        "detail": "St. Joseph's Cathedral"
+      },
+      {
+        "name": "wikipedia",
+        "start": 9442,
+        "ms": 459,
+        "outcome": "found",
+        "detail": "Hoan Kiem Lake"
+      },
+      {
+        "name": "wikipedia",
+        "start": 9442,
+        "ms": 1037,
+        "outcome": "found",
+        "detail": "Hanoi"
+      },
+      {
+        "name": "lookup",
+        "start": 9443,
+        "ms": 1036,
+        "outcome": "found",
+        "detail": "Hoan Kiem Lake"
+      },
+      {
+        "name": "photo-credit",
+        "start": 10479,
+        "ms": 533,
+        "outcome": "found",
+        "detail": "Hanoi_skyline_with_Ba_Vi_Mountain.jpg"
+      },
+      {
+        "name": "lookup",
+        "start": 10545,
+        "ms": 1024,
+        "outcome": "found",
+        "detail": "Dong Xuan Market"
+      },
+      {
+        "name": "lookup",
+        "start": 11645,
+        "ms": 825,
+        "outcome": "not found",
+        "detail": "Hang Be Market"
+      },
+      {
+        "name": "lookup",
+        "start": 12746,
+        "ms": 1238,
+        "outcome": "found",
+        "detail": "St. Joseph's Cathedral"
+      },
+      {
+        "name": "lookup",
+        "start": 13984,
+        "ms": 625,
+        "outcome": "found",
+        "detail": "Long Bien Bridge"
+      },
+      {
+        "name": "lookup",
+        "start": 15084,
+        "ms": 627,
+        "outcome": "not found",
+        "detail": "Hanoi Ceramic Mosaic Mural"
+      },
+      {
+        "name": "lookup",
+        "start": 16186,
+        "ms": 631,
+        "outcome": "found",
+        "detail": "Train Street Hanoi"
+      },
+      {
+        "name": "lookup",
+        "start": 17287,
+        "ms": 240,
+        "outcome": "found",
+        "detail": "Temple of Literature"
+      },
+      {
+        "name": "lookup",
+        "start": 18389,
+        "ms": 413,
+        "outcome": "not found",
+        "detail": "Phuc Kien Pagoda"
+      },
+      {
+        "name": "lookup",
+        "start": 19490,
+        "ms": 464,
+        "outcome": "not found",
+        "detail": "Quang Ba Flower Market"
+      },
+      {
+        "name": "lookup",
+        "start": 20591,
+        "ms": 947,
+        "outcome": "found",
+        "detail": "B52 Victory Museum"
+      },
+      {
+        "name": "lookup",
+        "start": 21692,
+        "ms": 876,
+        "outcome": "not found",
+        "detail": "Phung Hung Mural Street"
+      },
+      {
+        "name": "lookup",
+        "start": 22793,
+        "ms": 538,
+        "outcome": "not found",
+        "detail": "Ceramic Mosaic Mural"
+      },
+      {
+        "name": "repair",
+        "start": 23331,
+        "ms": 3602,
+        "outcome": "200",
+        "detail": "gemini-3.1-flash-lite"
+      },
+      {
+        "name": "repair-lookup",
+        "start": 26933,
+        "ms": 540,
+        "outcome": "found, other name",
+        "detail": "Chợ Hàng Bè"
+      },
+      {
+        "name": "repair-lookup",
+        "start": 28035,
+        "ms": 724,
+        "outcome": "not found",
+        "detail": "Con đường gốm sứ"
+      },
+      {
+        "name": "repair-lookup",
+        "start": 29136,
+        "ms": 726,
+        "outcome": "not found",
+        "detail": "Chùa Phúc Kiến"
+      },
+      {
+        "name": "repair-lookup",
+        "start": 30237,
+        "ms": 931,
+        "outcome": "found",
+        "detail": "Chợ hoa Quảng Bá"
+      },
+      {
+        "name": "repair-lookup",
+        "start": 31338,
+        "ms": 803,
+        "outcome": "not found",
+        "detail": "Phố bích họa Phùng Hưng"
+      }
+    ]
+  },
+  "refBox": [
+    20.5645154,
+    21.3854176,
+    105.2889615,
+    106.0200407
+  ]
+}

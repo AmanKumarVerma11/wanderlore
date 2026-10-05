@@ -73,13 +73,6 @@ export const Download = (p: IconProps) => (
   </Base>
 );
 
-export const Mail = (p: IconProps) => (
-  <Base {...p}>
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <path d="m3.5 7 8.5 6 8.5-6" />
-  </Base>
-);
-
 export const Check = (p: IconProps) => (
   <Base {...p}>
     <polyline points="4 12.5 9 17.5 20 6.5" />
@@ -122,6 +115,14 @@ export const Languages = (p: IconProps) => (
     <path d="M6 9c0 2.5 2.5 4.5 5.5 5.5" />
     <path d="m13 20 4-9 4 9" />
     <path d="M14.5 17h5" />
+  </Base>
+);
+
+export const Volume = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+    <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+    <path d="M19 5a10 10 0 0 1 0 14" />
   </Base>
 );
 
